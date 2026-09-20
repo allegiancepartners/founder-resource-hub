@@ -88,6 +88,18 @@
   }
   .section-label:first-of-type{margin-top:0;}
 
+  .intro{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 24px; margin-bottom:26px; box-shadow:var(--shadow); 
+  font-size:0.95rem; line-height:1.65; color:var(--ink-900); } .points{list-style:none; margin:0 0 28px; padding:0; counter-reset:point;} 
+  .points li{ counter-increment:point; position:relative; padding:20px 24px 20px 66px; background:var(--card); border:1px solid var(--line); 
+  border-radius:14px; box-shadow:var(--shadow); margin-bottom:14px; }
+  .points li::before{ content:counter(point); position:absolute; left:20px; top:20px; width:30px; height:30px; border-radius:50%;
+  background:var(--teal-600); color:#fff; font-size:0.86rem; font-weight:700; display:flex; align-items:center; justify-content:center; } 
+  .points li h3{ margin:0 0 8px; font-size:1.0rem; color:var(--teal-900); } .points li p{ margin:0; font-size:0.92rem; color:var(--ink-600); line-height:1.65; }
+  .points li p + p{ margin-top:10px; } .disc{ background:var(--coral-100); border:1px solid var(--coral-600); border-radius:12px; padding:14px 18px; margin:8px 0 22px; 
+  font-size:0.8rem; color:#63460b; line-height:1.6; } .contact{ background:var(--teal-100); border-radius:12px; padding:16px 20px; font-size:0.9rem; color:var(--teal-900); line-height:1.6; }
+  .contact a{ color:var(--teal-700); font-weight:700; text-decoration:none; border-bottom:1.5px solid var(--teal-500); padding-bottom:1px; }
+  .contact a:hover{ color:var(--coral-600); border-color:var(--coral-600); }
+
   footer{
     margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
     font-size:0.76rem;color:var(--ink-400);line-height:1.6;text-align:center;
