@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)file:///C:/Users/johna/Downloads/NYC%20Impact%20Founder%20Navigator_5.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYC Impact Founder Navigator</title>
+<style>
+  :root{
+    --teal-900:#0a2540;
+    --teal-700:#123a63;
+    --teal-600:#1b4f82;
+    --teal-500:#3572ad;
+    --teal-100:#e8eef6;
+    --coral-600:#b8860b;
+    --coral-100:#faf1dc;
+    --ink-900:#161b22;
+    --ink-600:#4b5563;
+    --ink-400:#818a95;
+    --paper:#f8f7f2;
+    --card:#ffffff;
+    --line:#e1e0d8;
+    --shadow: 0 2px 10px rgba(10,37,64,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    background:var(--paper);
+    color:var(--ink-900);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 24px 64px;}
+
+  header.hero{
+    background: linear-gradient(135deg, var(--teal-900), var(--teal-600));
+    color:#fff;
+    border-radius:16px;
+    padding:32px 36px;
+    margin-bottom:28px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; right:-60px; top:-60px;
+    width:220px; height:220px; border-radius:50%;
+    background:rgba(255,255,255,0.07);
+  }
+  header.hero .brand-label{
+    color:var(--coral-600);
+    font-size:0.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  header.hero h1{
+    margin:0 0 8px; font-size:1.7rem; font-weight:700; letter-spacing:-0.01em;
+  }
+  header.hero p{
+    margin:0; max-width:640px; color:rgba(255,255,255,0.88); line-height:1.55; font-size:0.97rem;
+  }
+  .badgebar{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
+  .badgebar span{
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.25);
+    padding:5px 12px; border-radius:999px; font-size:0.78rem; color:#fff;
+  }
+
+  /* Journey map */
+  .journey{
+    display:flex; gap:10px; margin-bottom:8px; position:relative;
+  }
+  .stage-node{
+    flex:1; cursor:pointer; background:var(--card); border:2px solid var(--line);
+    border-radius:14px; padding:16px 14px; text-align:left; transition:all .15s ease;
+    position:relative;
+  }
+  .stage-node:hover{ border-color:var(--teal-500); transform:translateY(-2px); }
+  .stage-node.active{
+    border-color:var(--teal-600); background:var(--teal-100);
+    box-shadow:var(--shadow);
+  }
+  .stage-node .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:24px; height:24px; border-radius:50%; background:var(--teal-600); color:#fff;
+    font-size:0.75rem; font-weight:700; margin-bottom:8px;
+  }
+  .stage-node.active .num{ background:var(--coral-600); }
+  .stage-node h3{ margin:0 0 4px; font-size:0.95rem; color:var(--teal-900); }
+  .stage-node p{ margin:0; font-size:0.78rem; color:var(--ink-600); line-height:1.4; }
+  .stage-node .count{
+    margin-top:8px; font-size:0.72rem; font-weight:600; color:var(--teal-700);
+  }
+
+  .field-guide{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px 22px; margin:18px 0 26px; box-shadow:var(--shadow);
+  }
+  .field-guide h4{ margin:0 0 8px; color:var(--coral-600); font-size:0.85rem; text-transform:uppercase; letter-spacing:.05em; }
+  .field-guide p{ margin:0; line-height:1.6; font-size:0.92rem; color:var(--ink-900); }
+
+  /* Matrix overview */
+  .matrix-toggle{
+    display:flex; align-items:center; gap:10px; margin:6px 0 18px; cursor:pointer;
+    font-size:0.85rem; color:var(--teal-700); font-weight:600; user-select:none;
+  }
+  .matrix-toggle svg{transition:transform .15s;}
+  .matrix-toggle.open svg{transform:rotate(90deg);}
+  .matrix-wrap{ display:none; margin-bottom:22px; overflow-x:auto; }
+  .matrix-wrap.show{ display:block; }
+  .toggle-row{ display:flex; flex-wrap:wrap; gap:10px 28px; margin:6px 0 4px; }
+  .toggle-row .matrix-toggle{ margin:0 0 18px; }
+
+  /* Ecosystem map */
+  .eco-map{ position:relative; margin:0 auto; }
+  .eco-hub{
+    position:absolute; width:150px; height:150px; border-radius:50%;
+    background:linear-gradient(135deg, var(--teal-900), var(--teal-600));
+    color:#fff; display:flex; align-items:center; justify-content:center; text-align:center;
+    font-weight:700; font-size:0.82rem; line-height:1.3; padding:10px; box-shadow:var(--shadow);
+    z-index:3; transform:translate(-50%,-50%);
+  }
+  .eco-node{
+    position:absolute; width:196px; background:var(--card); border:2px solid var(--teal-500);
+    border-radius:12px; padding:10px 13px; cursor:pointer; box-shadow:var(--shadow); z-index:2;
+    transform:translate(-50%,-50%); transition:border-color .12s, background .12s;
+  }
+  .eco-node:hover{ border-color:var(--coral-600); }
+  .eco-node.active{ border-color:var(--coral-600); background:var(--coral-100); }
+  .eco-node .eco-count{ font-size:0.68rem; color:var(--teal-700); font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .eco-node h4{ margin:3px 0 5px; font-size:0.86rem; color:var(--teal-900); }
+  .eco-node .eco-examples{ font-size:0.72rem; color:var(--ink-600); line-height:1.4; }
+  .eco-lines{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+  .eco-map-fallback{ display:none; }
+  .eco-cluster{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:10px; cursor:pointer; transition:border-color .12s; }
+  .eco-cluster:hover{ border-color:var(--teal-500); }
+  .eco-cluster.active{ border-color:var(--coral-600); background:var(--coral-100); }
+  .eco-cluster .eco-count{ font-size:0.7rem; color:var(--teal-700); font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .eco-cluster h4{ margin:3px 0 4px; color:var(--teal-900); font-size:0.92rem; }
+  .eco-cluster .eco-examples{ font-size:0.8rem; color:var(--ink-600); line-height:1.5; }
+  @media (max-width:920px){
+    .eco-map{ display:none; }
+    .eco-map-fallback{ display:block; }
+  }
+
+  /* Trusted Advisor Bench */
+  .bench-wrap{ display:none; margin-bottom:22px; }
+  .bench-wrap.show{ display:block; }
+  .bench-intro{
+    background:var(--coral-100); border:1px solid var(--coral-600); border-radius:12px;
+    padding:14px 18px; margin-bottom:20px; font-size:0.86rem; color:var(--ink-900); line-height:1.55;
+  }
+  .bench-intro strong{ color:var(--coral-600); }
+  .bench-discipline h3{
+    margin:26px 0 4px; font-size:1.1rem; color:var(--teal-900); border-bottom:2px solid var(--teal-600); padding-bottom:6px;
+  }
+  .bench-discipline:first-child h3{ margin-top:0; }
+  .bench-group{ margin:16px 0 24px; }
+  .bench-group h4{
+    margin:0 0 10px; font-size:0.85rem; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--coral-600); font-weight:700;
+  }
+  .bench-cards{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:12px; }
+  .bench-card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+    box-shadow:var(--shadow); display:flex; flex-direction:column; gap:5px;
+  }
+  .bench-card h5{ margin:0; font-size:0.96rem; color:var(--ink-900); }
+  .bench-card .firm{ font-size:0.8rem; color:var(--teal-700); font-weight:600; }
+  .bench-card p.desc{ margin:2px 0 4px; font-size:0.82rem; color:var(--ink-600); line-height:1.5; }
+  .bench-card .contact{ font-size:0.8rem; color:var(--ink-600); display:flex; flex-direction:column; gap:2px; }
+  .bench-card .contact a{ color:var(--teal-700); text-decoration:none; }
+  .bench-card .contact a:hover{ color:var(--coral-600); }
+  .bench-card a.link{
+    margin-top:2px; align-self:flex-start; font-size:0.8rem; font-weight:700; color:var(--teal-700);
+    text-decoration:none; border-bottom:1.5px solid var(--teal-500); padding-bottom:1px;
+  }
+  .bench-card a.link:hover{ color:var(--coral-600); border-color:var(--coral-600); }
+  table.matrix{ border-collapse:collapse; width:100%; background:var(--card); border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  table.matrix th, table.matrix td{ padding:10px 12px; border:1px solid var(--line); text-align:center; font-size:0.78rem; }
+  table.matrix th{ background:var(--teal-900); color:#fff; font-weight:600; }
+  table.matrix td.rowlabel{ text-align:left; font-weight:600; color:var(--teal-900); background:var(--teal-100); }
+  table.matrix td.cell{ cursor:pointer; font-weight:700; color:var(--teal-700); }
+  table.matrix td.cell:hover{ background:var(--coral-100); }
+  table.matrix td.cell.zero{ color:var(--ink-400); font-weight:400; cursor:default; }
+  table.matrix td.cell.zero:hover{ background:var(--card); }
+
+  /* Controls */
+  .controls{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px;
+  }
+  .search-box{
+    flex:1; min-width:220px; position:relative;
+  }
+  .search-box input{
+    width:100%; padding:10px 14px 10px 36px; border-radius:10px; border:1px solid var(--line);
+    font-size:0.9rem; background:var(--card);
+  }
+  .search-box::before{
+    content:"⌕"; position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    color:var(--ink-400); font-size:1.1rem;
+  }
+  .chip{
+    border:1px solid var(--line); background:var(--card); padding:7px 14px; border-radius:999px;
+    font-size:0.8rem; cursor:pointer; color:var(--ink-600); white-space:nowrap; transition:all .12s;
+  }
+  .chip:hover{ border-color:var(--teal-500); }
+  .chip.active{ background:var(--teal-600); border-color:var(--teal-600); color:#fff; }
+  .chip.coral.active{ background:var(--coral-600); border-color:var(--coral-600); }
+  .cat-row, .flag-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .row-label{ font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-400); margin:0 8px 6px 0; align-self:center; font-weight:700;}
+
+  .results-meta{ font-size:0.82rem; color:var(--ink-600); margin-bottom:12px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; }
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+    box-shadow:var(--shadow); display:flex; flex-direction:column; gap:8px;
+  }
+  .card .cat-tag{
+    align-self:flex-start; font-size:0.68rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.04em; color:var(--teal-700); background:var(--teal-100); padding:3px 9px; border-radius:6px;
+  }
+  .card h3{ margin:0; font-size:1.02rem; color:var(--ink-900); }
+  .card p.desc{ margin:0; font-size:0.85rem; color:var(--ink-600); line-height:1.5; flex-grow:1; }
+  .card .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .card .tags span{ font-size:0.68rem; padding:3px 8px; border-radius:999px; font-weight:600; }
+  .card .contact{ font-size:0.8rem; color:var(--ink-600); display:flex; flex-direction:column; gap:2px; }
+  .card .contact a{ color:var(--teal-700); text-decoration:none; }
+  .card .contact a:hover{ color:var(--coral-600); }
+  .tag-under{ background:var(--coral-100); color:var(--coral-600); }
+  .tag-impact{ background:#eaf4e6; color:#3f7d2c; }
+  .tag-stage{ background:#eef1f7; color:#3a4a6b; }
+  .card a.link{
+    margin-top:4px; align-self:flex-start; font-size:0.82rem; font-weight:700; color:var(--teal-700);
+    text-decoration:none; border-bottom:1.5px solid var(--teal-500); padding-bottom:1px;
+  }
+  .card a.link:hover{ color:var(--coral-600); border-color:var(--coral-600); }
+
+  .empty{ text-align:center; padding:50px 20px; color:var(--ink-400); }
+
+  footer{
+    margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:0.76rem; color:var(--ink-400); line-height:1.6;
+  }
+
+  @media (max-width:760px){
+    .journey{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand-label">Allegiance Partners</div>
+    <h1>NYC Impact Founder Navigator</h1>
+    <p>A methodology and living map for underrepresented Impact-tech founders building in New York City — organized by where you are in your journey and what kind of support you need next.</p>
+    <div class="badgebar">
+      <span id="totalCount">93 resources</span>
+      <span>4 startup stages</span>
+      <span id="catCount">9 support categories</span>
+    </div>
+  </header>
+
+  <div class="journey" id="journey"><div class="stage-node " data-stage="idea">
+      <span class="num">1</span>
+      <h3>Idea &amp; Validation</h3>
+      <p>Test the problem, not the product.</p>
+      <div class="count">44 resources</div>
+    </div><div class="stage-node " data-stage="preseed">
+      <span class="num">2</span>
+      <h3>Formation &amp; Pre-Seed</h3>
+      <p>Incorporate, build MVP, assemble the team.</p>
+      <div class="count">74 resources</div>
+    </div><div class="stage-node " data-stage="seed">
+      <span class="num">3</span>
+      <h3>Seed &amp; Early Traction</h3>
+      <p>Prove the model, raise the round.</p>
+      <div class="count">77 resources</div>
+    </div><div class="stage-node " data-stage="growth">
+      <span class="num">4</span>
+      <h3>Growth &amp; Scale</h3>
+      <p>Institutionalize, scale, mentor others.</p>
+      <div class="count">44 resources</div>
+    </div></div>
+
+  <div class="field-guide" id="fieldGuide"><h4>Methodology</h4><p>Select a stage above to see focused guidance, or browse the full matrix and directory below. This tool pairs a journey-stage lens with a category lens so you can find the right kind of help at the right moment — not just a long list of logos.</p></div>
+
+  <div class="toggle-row">
+    <div class="matrix-toggle" id="matrixToggle">
+      <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,5 0,10" fill="currentColor"></polygon></svg>
+      View the full stage × category matrix
+    </div>
+    <div class="matrix-toggle" id="mapToggle">
+      <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,5 0,10" fill="currentColor"></polygon></svg>
+      View the NYC ecosystem map
+    </div>
+    <div class="matrix-toggle" id="benchToggle">
+      <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,5 0,10" fill="currentColor"></polygon></svg>
+      View the Trusted Advisor Bench
+    </div>
+  </div>
+  <div class="matrix-wrap" id="matrixWrap"><table class="matrix"><thead><tr><th>Category</th><th>Idea &amp; Validation</th><th>Formation &amp; Pre-Seed</th><th>Seed &amp; Early Traction</th><th>Growth &amp; Scale</th></tr></thead><tbody><tr><td class="rowlabel">Equity Funding</td><td class="cell " data-stage="idea" data-cat="funding-equity">2</td><td class="cell " data-stage="preseed" data-cat="funding-equity">23</td><td class="cell " data-stage="seed" data-cat="funding-equity">26</td><td class="cell " data-stage="growth" data-cat="funding-equity">8</td></tr><tr><td class="rowlabel">Non-Dilutive &amp; CDFI</td><td class="cell " data-stage="idea" data-cat="funding-nondilutive">5</td><td class="cell " data-stage="preseed" data-cat="funding-nondilutive">5</td><td class="cell " data-stage="seed" data-cat="funding-nondilutive">4</td><td class="cell " data-stage="growth" data-cat="funding-nondilutive">4</td></tr><tr><td class="rowlabel">Accelerators &amp; Incubators</td><td class="cell " data-stage="idea" data-cat="accelerator">11</td><td class="cell " data-stage="preseed" data-cat="accelerator">16</td><td class="cell " data-stage="seed" data-cat="accelerator">14</td><td class="cell " data-stage="growth" data-cat="accelerator">4</td></tr><tr><td class="rowlabel">Legal &amp; Compliance</td><td class="cell " data-stage="idea" data-cat="legal">4</td><td class="cell " data-stage="preseed" data-cat="legal">5</td><td class="cell " data-stage="seed" data-cat="legal">3</td><td class="cell " data-stage="growth" data-cat="legal">2</td></tr><tr><td class="rowlabel">Mentorship &amp; Community</td><td class="cell " data-stage="idea" data-cat="mentorship">12</td><td class="cell " data-stage="preseed" data-cat="mentorship">12</td><td class="cell " data-stage="seed" data-cat="mentorship">11</td><td class="cell " data-stage="growth" data-cat="mentorship">10</td></tr><tr><td class="rowlabel">Workspace &amp; Talent</td><td class="cell " data-stage="idea" data-cat="workspace">3</td><td class="cell " data-stage="preseed" data-cat="workspace">3</td><td class="cell " data-stage="seed" data-cat="workspace">2</td><td class="cell " data-stage="growth" data-cat="workspace">1</td></tr><tr><td class="rowlabel">Impact Networks</td><td class="cell " data-stage="idea" data-cat="impact">1</td><td class="cell " data-stage="preseed" data-cat="impact">1</td><td class="cell " data-stage="seed" data-cat="impact">5</td><td class="cell " data-stage="growth" data-cat="impact">5</td></tr><tr><td class="rowlabel">Public Sector</td><td class="cell " data-stage="idea" data-cat="public">6</td><td class="cell " data-stage="preseed" data-cat="public">7</td><td class="cell " data-stage="seed" data-cat="public">9</td><td class="cell " data-stage="growth" data-cat="public">8</td></tr><tr><td class="rowlabel">Tools &amp; Platforms</td><td class="cell zero" data-stage="idea" data-cat="tools">—</td><td class="cell " data-stage="preseed" data-cat="tools">2</td><td class="cell " data-stage="seed" data-cat="tools">3</td><td class="cell " data-stage="growth" data-cat="tools">2</td></tr></tbody></table></div>
+  <div class="matrix-wrap" id="mapWrap">
+    <div class="eco-map" style="width:860px; height:620px;">
+      <svg class="eco-lines" width="860" height="620"><line x1="430" y1="310" x2="430" y2="75" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="581" y2="130" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="661" y2="269" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="634" y2="427" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="510" y2="531" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="350" y2="531" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="226" y2="428" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="199" y2="269" stroke="var(--line)" stroke-width="2"></line><line x1="430" y1="310" x2="279" y2="130" stroke="var(--line)" stroke-width="2"></line></svg>
+      <div class="eco-hub" style="left:430px; top:310px;">NYC Impact<br>Founder<br>Ecosystem</div>
+      <div class="eco-node " data-cat="funding-equity" style="left:430px; top:75px;">
+        <div class="eco-count">27 resources</div>
+        <h4>Equity Funding</h4>
+        <div class="eco-examples">Harlem Capital · Concrete Rose Capital · Female Founders Fund +24 more</div>
+      </div><div class="eco-node " data-cat="funding-nondilutive" style="left:581px; top:130px;">
+        <div class="eco-count">5 resources</div>
+        <h4>Non-Dilutive &amp; CDFI</h4>
+        <div class="eco-examples">Pursuit · TruFund Financial Services · Accion Opportunity Fund +2 more</div>
+      </div><div class="eco-node " data-cat="accelerator" style="left:661px; top:269px;">
+        <div class="eco-count">20 resources</div>
+        <h4>Accelerators &amp; Incubators</h4>
+        <div class="eco-examples">Techstars NYC · Newlab · Grand Central Tech +17 more</div>
+      </div><div class="eco-node " data-cat="legal" style="left:634px; top:427px;">
+        <div class="eco-count">5 resources</div>
+        <h4>Legal &amp; Compliance</h4>
+        <div class="eco-examples">Lawyers Alliance for New York · NYU Law Startup Law Clinic · Columbia Law Entrepreneurship Clinic +2 more</div>
+      </div><div class="eco-node " data-cat="mentorship" style="left:510px; top:531px;">
+        <div class="eco-count">15 resources</div>
+        <h4>Mentorship &amp; Community</h4>
+        <div class="eco-examples">StartOut · Founder Gym · Tech:NYC +12 more</div>
+      </div><div class="eco-node " data-cat="workspace" style="left:350px; top:531px;">
+        <div class="eco-count">3 resources</div>
+        <h4>Workspace &amp; Talent</h4>
+        <div class="eco-examples">Company · Civic Hall · Silicon Harlem</div>
+      </div><div class="eco-node " data-cat="impact" style="left:226px; top:428px;">
+        <div class="eco-count">6 resources</div>
+        <h4>Impact Networks</h4>
+        <div class="eco-examples">Echoing Green · Toniic · Draper Richards Kaplan Foundation +3 more</div>
+      </div><div class="eco-node " data-cat="public" style="left:199px; top:269px;">
+        <div class="eco-count">9 resources</div>
+        <h4>Public Sector</h4>
+        <div class="eco-examples">NYC EDC Venture Access Alliance (Full Member Directory) · WE NYC (Women Entrepreneurs NYC) · NYC Business Solutions (SBS) +6 more</div>
+      </div><div class="eco-node " data-cat="tools" style="left:279px; top:130px;">
+        <div class="eco-count">3 resources</div>
+        <h4>Tools &amp; Platforms</h4>
+        <div class="eco-examples">PitchBook · Rocket Dollar · Play Money</div>
+      </div>
+    </div>
+    <div class="eco-map-fallback"><div class="eco-cluster " data-cat="funding-equity">
+        <div class="eco-count">27 resources</div>
+        <h4>Equity Funding</h4>
+        <div class="eco-examples">Harlem Capital · Concrete Rose Capital · Female Founders Fund +24 more</div>
+      </div><div class="eco-cluster " data-cat="funding-nondilutive">
+        <div class="eco-count">5 resources</div>
+        <h4>Non-Dilutive &amp; CDFI</h4>
+        <div class="eco-examples">Pursuit · TruFund Financial Services · Accion Opportunity Fund +2 more</div>
+      </div><div class="eco-cluster " data-cat="accelerator">
+        <div class="eco-count">20 resources</div>
+        <h4>Accelerators &amp; Incubators</h4>
+        <div class="eco-examples">Techstars NYC · Newlab · Grand Central Tech +17 more</div>
+      </div><div class="eco-cluster " data-cat="legal">
+        <div class="eco-count">5 resources</div>
+        <h4>Legal &amp; Compliance</h4>
+        <div class="eco-examples">Lawyers Alliance for New York · NYU Law Startup Law Clinic · Columbia Law Entrepreneurship Clinic +2 more</div>
+      </div><div class="eco-cluster " data-cat="mentorship">
+        <div class="eco-count">15 resources</div>
+        <h4>Mentorship &amp; Community</h4>
+        <div class="eco-examples">StartOut · Founder Gym · Tech:NYC +12 more</div>
+      </div><div class="eco-cluster " data-cat="workspace">
+        <div class="eco-count">3 resources</div>
+        <h4>Workspace &amp; Talent</h4>
+        <div class="eco-examples">Company · Civic Hall · Silicon Harlem</div>
+      </div><div class="eco-cluster " data-cat="impact">
+        <div class="eco-count">6 resources</div>
+        <h4>Impact Networks</h4>
+        <div class="eco-examples">Echoing Green · Toniic · Draper Richards Kaplan Foundation +3 more</div>
+      </div><div class="eco-cluster " data-cat="public">
+        <div class="eco-count">9 resources</div>
+        <h4>Public Sector</h4>
+        <div class="eco-examples">NYC EDC Venture Access Alliance (Full Member Directory) · WE NYC (Women Entrepreneurs NYC) · NYC Business Solutions (SBS) +6 more</div>
+      </div><div class="eco-cluster " data-cat="tools">
+        <div class="eco-count">3 resources</div>
+        <h4>Tools &amp; Platforms</h4>
+        <div class="eco-examples">PitchBook · Rocket Dollar · Play Money</div>
+      </div></div>
+  </div>
+  <div class="bench-wrap" id="benchWrap"><div class="bench-intro"><strong>Fiduciary standard:</strong> every discipline below carries at least three vetted options, so a Founder referral always comes with a genuine choice rather than a single name. Verified by Allegiance Partners; confirm current availability before referring.</div><div class="bench-discipline"><h3>Legal</h3><div class="bench-group">
+        <h4>Basic Estate Planning (4)</h4>
+        <div class="bench-cards"><div class="bench-card">
+      <h5>Will Gillen</h5>
+      <div class="firm">Law Offices of William S. Gillen</div>
+      <p class="desc">Brooklyn-based solo practice handling probate, estate planning, elder law, and real estate transactions — an accessible option for founders' personal estate planning.</p>
+      <div class="contact"><span>(646) 248-5398</span></div>
+      <a class="link" href="https://www.gillenlegal.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Paul Ellis</h5>
+      <div class="firm">Ellis Law Group LLC (Managing Partner)</div>
+      <p class="desc">NY/CA corporate firm ranked by Chambers USA for startups and emerging companies; also handles personal estate planning for founders and their families across formation, growth, and exit.</p>
+      
+      <a class="link" href="https://elg.law/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Cooley GO</h5>
+      <div class="firm">Cooley LLP</div>
+      <p class="desc">Cooley's free legal resource platform, covering the full company lifecycle from formation and IP through fundraising, governance, and exit — a self-serve companion to the named advisors above, not a substitute for one.</p>
+      
+      <a class="link" href="https://www.cooleygo.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Davidoff Hutcher &amp; Citron LLP</h5>
+      
+      <p class="desc">Full-service NYC firm (est. 1975) with dedicated Real Estate and Trusts &amp; Estates practices among 15+ practice areas.</p>
+      
+      <a class="link" href="https://www.dhclegal.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div></div>
+      </div><div class="bench-group">
+        <h4>Advanced Estate &amp; Tax Planning (6)</h4>
+        <div class="bench-cards"><div class="bench-card">
+      <h5>Paul Ellis</h5>
+      <div class="firm">Ellis Law Group LLC (Managing Partner)</div>
+      <p class="desc">NY/CA corporate firm ranked by Chambers USA for startups and emerging companies; also handles personal estate planning for founders and their families across formation, growth, and exit.</p>
+      
+      <a class="link" href="https://elg.law/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Michael S. Arlein</h5>
+      <div class="firm">Patterson Belknap Webb &amp; Tyler LLP</div>
+      <p class="desc">Partner in the firm's Exempt Organizations &amp; Private Clients practice at this ~200-lawyer NYC firm advising private clients, trusts, and tax-exempt entities.</p>
+      
+      <a class="link" href="https://www.pbwt.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Michael Gooen</h5>
+      <div class="firm">Lowenstein Sandler LLP</div>
+      <p class="desc">Partner in Private Client Services at this 400+ lawyer national firm, also one of the most active venture capital and startup-formation practices in the country.</p>
+      
+      <a class="link" href="https://www.lowenstein.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Michael M. Gordon</h5>
+      <div class="firm">Gordon, Fournaris &amp; Mammarella, P.A.</div>
+      <p class="desc">Delaware trusts and estates specialist — Allegiance's go-to for Delaware trust structuring.</p>
+      
+      <a class="link" href="https://www.gfmlaw.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Beth D. Tractenberg</h5>
+      <div class="firm">Steptoe LLP</div>
+      <p class="desc">Partner at this global law firm's private client practice, advising on sophisticated estate and tax planning.</p>
+      
+      <a class="link" href="https://www.steptoe.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Cooley GO</h5>
+      <div class="firm">Cooley LLP</div>
+      <p class="desc">Cooley's free legal resource platform, covering the full company lifecycle from formation and IP through fundraising, governance, and exit — a self-serve companion to the named advisors above, not a substitute for one.</p>
+      
+      <a class="link" href="https://www.cooleygo.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div></div>
+      </div><div class="bench-group">
+        <h4>Corporate Incorporation (4)</h4>
+        <div class="bench-cards"><div class="bench-card">
+      <h5>Paul Ellis</h5>
+      <div class="firm">Ellis Law Group LLC (Managing Partner)</div>
+      <p class="desc">NY/CA corporate firm ranked by Chambers USA for startups and emerging companies; also handles personal estate planning for founders and their families across formation, growth, and exit.</p>
+      
+      <a class="link" href="https://elg.law/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>James H. Yoo, CPA</h5>
+      <div class="firm">Sebit LLP (Managing Partner)</div>
+      <p class="desc">CPA firm assisting founders with entity formation, bookkeeping, and tax from day one.</p>
+      <div class="contact"><span>(212) 354-5570 · mobile (917) 295-9333</span><a href="mailto:JYOO@SEBITLLP.COM">JYOO@SEBITLLP.COM</a><span>1430 Broadway, Suite 600, New York, NY 10018</span></div>
+      <a class="link" href="https://www.sebitllp.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Osahon Okundaye</h5>
+      <div class="firm">Okundaye Legal PLLC</div>
+      <p class="desc">Boutique Brooklyn impact-finance and structured-finance firm — fund formation, CDFI capital access, and entity structuring on fixed fees.</p>
+      <div class="contact"><span>718-208-6080</span><a href="mailto:osahon@okundayelegal.com">osahon@okundayelegal.com</a></div>
+      <a class="link" href="https://www.okundayelegal.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Cooley GO</h5>
+      <div class="firm">Cooley LLP</div>
+      <p class="desc">Cooley's free legal resource platform, covering the full company lifecycle from formation and IP through fundraising, governance, and exit — a self-serve companion to the named advisors above, not a substitute for one.</p>
+      
+      <a class="link" href="https://www.cooleygo.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div></div>
+      </div><div class="bench-group">
+        <h4>M&amp;A (3)</h4>
+        <div class="bench-cards"><div class="bench-card">
+      <h5>Paul Ellis</h5>
+      <div class="firm">Ellis Law Group LLC (Managing Partner)</div>
+      <p class="desc">NY/CA corporate firm ranked by Chambers USA for startups and emerging companies; also handles personal estate planning for founders and their families across formation, growth, and exit.</p>
+      
+      <a class="link" href="https://elg.law/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Osahon Okundaye</h5>
+      <div class="firm">Okundaye Legal PLLC</div>
+      <p class="desc">Boutique Brooklyn impact-finance and structured-finance firm — fund formation, CDFI capital access, and entity structuring on fixed fees.</p>
+      <div class="contact"><span>718-208-6080</span><a href="mailto:osahon@okundayelegal.com">osahon@okundayelegal.com</a></div>
+      <a class="link" href="https://www.okundayelegal.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Cooley GO</h5>
+      <div class="firm">Cooley LLP</div>
+      <p class="desc">Cooley's free legal resource platform, covering the full company lifecycle from formation and IP through fundraising, governance, and exit — a self-serve companion to the named advisors above, not a substitute for one.</p>
+      
+      <a class="link" href="https://www.cooleygo.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div></div>
+      </div><div class="bench-group">
+        <h4>Real Estate (4)</h4>
+        <div class="bench-cards"><div class="bench-card">
+      <h5>Will Gillen</h5>
+      <div class="firm">Law Offices of William S. Gillen</div>
+      <p class="desc">Brooklyn-based solo practice handling probate, estate planning, elder law, and real estate transactions — an accessible option for founders' personal estate planning.</p>
+      <div class="contact"><span>(646) 248-5398</span></div>
+      <a class="link" href="https://www.gillenlegal.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Cooley GO</h5>
+      <div class="firm">Cooley LLP</div>
+      <p class="desc">Cooley's free legal resource platform, covering the full company lifecycle from formation and IP through fundraising, governance, and exit — a self-serve companion to the named advisors above, not a substitute for one.</p>
+      
+      <a class="link" href="https://www.cooleygo.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Davidoff Hutcher &amp; Citron LLP</h5>
+      
+      <p class="desc">Full-service NYC firm (est. 1975) with dedicated Real Estate and Trusts &amp; Estates practices among 15+ practice areas.</p>
+      
+      <a class="link" href="https://www.dhclegal.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Rosenberg &amp; Estis, P.C.</h5>
+      
+      <p class="desc">NYC's premier real estate law firm since 1975, handling acquisitions, sales, leases, and related commercial real estate transactions.</p>
+      
+      <a class="link" href="https://www.rosenbergestis.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div></div>
+      </div></div><div class="bench-discipline"><h3>CPA / Accounting</h3>
+      <div class="bench-group">
+        <div class="bench-cards"><div class="bench-card">
+      <h5>James H. Yoo, CPA</h5>
+      <div class="firm">Sebit LLP (Managing Partner)</div>
+      <p class="desc">CPA firm assisting founders with entity formation, bookkeeping, and tax from day one.</p>
+      <div class="contact"><span>(212) 354-5570 · mobile (917) 295-9333</span><a href="mailto:JYOO@SEBITLLP.COM">JYOO@SEBITLLP.COM</a><span>1430 Broadway, Suite 600, New York, NY 10018</span></div>
+      <a class="link" href="https://www.sebitllp.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>EisnerAmper LLP</h5>
+      
+      <p class="desc">NYC-based national firm (4,500+ professionals) with a dedicated Startups practice and Technology Companies industry group; also a NY Tech Alliance partner.</p>
+      
+      <a class="link" href="https://www.eisneramper.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div><div class="bench-card">
+      <h5>Withum (WithumSmith+Brown, PC)</h5>
+      
+      <p class="desc">National firm with a dedicated Technology and Emerging Growth industry practice and NY/NJ offices, serving venture-backed companies from formation through scale.</p>
+      
+      <a class="link" href="https://www.withum.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div></div>
+      </div>
+    </div></div>
+
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by name or keyword (e.g. &#39;legal&#39;, &#39;grant&#39;, &#39;women&#39;)">
+    </div>
+    <div class="chip coral" id="underToggle">Underrepresented-focused</div>
+    <div class="chip coral" id="impactToggle">Impact / mission-driven focus</div>
+  </div>
+
+  <div class="row-label" style="display:block; margin-bottom:6px;">Filter by category</div>
+  <div class="cat-row" id="catRow"><div class="chip " data-cat="funding-equity">Equity Funding</div><div class="chip " data-cat="funding-nondilutive">Non-Dilutive &amp; CDFI</div><div class="chip " data-cat="accelerator">Accelerators &amp; Incubators</div><div class="chip " data-cat="legal">Legal &amp; Compliance</div><div class="chip " data-cat="mentorship">Mentorship &amp; Community</div><div class="chip " data-cat="workspace">Workspace &amp; Talent</div><div class="chip " data-cat="impact">Impact Networks</div><div class="chip " data-cat="public">Public Sector</div><div class="chip " data-cat="tools">Tools &amp; Platforms</div></div>
+
+  <div class="results-meta" id="resultsMeta">Showing 93 of 93 resources</div>
+  <div class="grid" id="grid">
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Techstars NYC</h3>
+      <p class="desc">Global accelerator brand with an active NYC program; mentorship-driven, equity-for-cash model.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.techstars.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Newlab</h3>
+      <p class="desc">Brooklyn Navy Yard deep-tech and climate hub with lab space, community, and investor access; also runs an annual NYC EDC Founder Fellowship cohort focused on lowering barriers to commercialization.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://newlab.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Grand Central Tech</h3>
+      <p class="desc">NYC accelerator offering free office space in Manhattan in exchange for a small equity stake.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://gct.co/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Workspace &amp; Talent</span>
+      <h3>Company</h3>
+      <p class="desc">Bed-Stuy Brooklyn workspace and community built for underrepresented tech founders and professionals.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.company.co/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Cornell Tech Runway / Startup Studio</h3>
+      <p class="desc">Roosevelt Island research-to-startup pipeline with postdoc and studio tracks for early venture formation.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://tech.cornell.edu/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>NYU Tandon Future Labs</h3>
+      <p class="desc">Network of NYU-affiliated incubators across urban tech, digital health, cyber, and veteran-founded ventures.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.futurelabs.nyc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Blue Ridge Labs @ Robin Hood</h3>
+      <p class="desc">NYC fellowship building tech products aimed at economic mobility for low-income New Yorkers.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.blueridgelabs.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Black Ambition</h3>
+      <p class="desc">National prize competition and support programming for Black and Latinx founders, active in NYC cohorts.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://blackambitionprize.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Camelback Ventures</h3>
+      <p class="desc">Fellowship providing capital and coaching to women and entrepreneurs of color building mission-driven ventures.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://camelbackventures.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>StartOut</h3>
+      <p class="desc">National network and programming for LGBTQ+ founders with active NYC chapter events.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.startout.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Founder Gym</h3>
+      <p class="desc">Online training program preparing underrepresented founders to fundraise with confidence.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.foundergym.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Village Capital</h3>
+      <p class="desc">Runs sector-specific impact accelerator cohorts with peer-selected investment; frequent NYC-based programs.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://vilcap.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Fast Forward</h3>
+      <p class="desc">Accelerator exclusively for tech nonprofits solving large-scale social problems.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.ffwd.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>SEED SPOT</h3>
+      <p class="desc">Impact-focused accelerator and training programs supporting underrepresented social entrepreneurs.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://seedspot.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Scale Ready Studio</h3>
+      <p class="desc">WE NYC (women.nyc) 12-week revenue-growth accelerator for women-identifying and non-binary founders with existing revenue — go-to-market, sales systems, and founder-independent operations; free, no equity taken.</p>
+      <div class="tags">
+        <span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://scalereadystudio.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Harlem Capital</h3>
+      <p class="desc">NYC-based VC firm with a mission to change the face of entrepreneurship, investing in minority and women founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.harlem.capital/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Concrete Rose Capital</h3>
+      <p class="desc">Fund investing in Black and Latina women-led technology companies.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.concreterosecapital.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Female Founders Fund</h3>
+      <p class="desc">NYC-based venture fund investing exclusively in women-led companies from seed stage.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.femalefoundersfund.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Precursor Ventures</h3>
+      <p class="desc">Pre-seed fund known for backing first-time and underrepresented founders very early.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://precursorvc.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Impact America Fund</h3>
+      <p class="desc">Fund investing in underrepresented founders building technology for underserved communities.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.impactamericafund.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Zeal Capital Partners</h3>
+      <p class="desc">'Inclusive economy' focused fund investing in fintech, future of work, and education companies.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.zealcap.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Golden Seeds</h3>
+      <p class="desc">Angel investor network focused on women-led businesses, active with NYC chapter events.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://goldenseeds.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Gingerbread Capital</h3>
+      <p class="desc">NYC-based angel fund investing in women-led consumer and tech startups.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.gingerbreadcapital.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Kapor Capital</h3>
+      <p class="desc">Impact-driven VC investing in closing gaps of access, opportunity, or outcome for underrepresented communities.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.kaporcapital.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>The Venture Collective (TVC)</h3>
+      <p class="desc">NYC-based permanent balance-sheet investor backing mission-driven and overlooked founders from incorporation through Series A, pairing capital with hands-on operational support.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.theventurecollective.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Anthemis Group</h3>
+      <p class="desc">Fintech-focused VC with NYC and London offices; runs the Female Innovators Lab for women-founded fintechs and invests from pre-seed through growth.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.anthemis.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Gaingels</h3>
+      <p class="desc">One of the most active LGBTQIA+/allies investor syndicates, co-investing alongside lead VCs and providing diverse board-member placement for portfolio companies.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://gaingels.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>One Way Ventures</h3>
+      <p class="desc">Backs startups with at least one immigrant founder, drawing on the team's own immigrant experience to evaluate early-stage risk and opportunity.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.onewayvc.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Unshackled Ventures</h3>
+      <p class="desc">The first check for 'Day 0' immigrant founders — invests pre-product and pre-visa, sponsoring visas directly as the founders' employer of record while founders retain ownership.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.unshackledvc.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>L'ATTITUDE Ventures</h3>
+      <p class="desc">Early-stage fund investing exclusively in Latino-owned, high-growth companies through a $100M+ institutional fund tied to the L'ATTITUDE platform.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.lattitude.ventures/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Backstage Capital</h3>
+      <p class="desc">Founded by Arlan Hamilton, one of the most visible funds backing women, people of color, and LGBTQ+ founders; new-investment pace has slowed in recent years, so confirm current activity before pitching.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://backstagecapital.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>WOCstar Fund</h3>
+      <p class="desc">NYC-based fund backing women of color founders in tech, media, and consumer, paired with Wocstar Academy's capital-readiness training for founders and allies.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.wocstar.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Overlooked Ventures</h3>
+      <p class="desc">Early-stage investor specializing in companies founded by historically overlooked founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.overlooked.ventures/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Vamos Ventures</h3>
+      <p class="desc">Invests at seed and early stages in U.S. Hispanic and underrepresented tech-enabled founders, combining private-equity discipline with a social-mobility focus.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.vamos.vc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Reign Ventures</h3>
+      <p class="desc">Inclusive early-stage investor offering hands-on support and network access to underrepresented founders across sectors.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.reign.vc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Collide Capital</h3>
+      <p class="desc">100% Black-owned fund founded by the creators of AfroTech and BLCK VC, backing diverse founding teams from pre-seed to Series A across fintech, supply chain, and enterprise software.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://collidecap.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>NYC EDC Venture Access Alliance (Full Member Directory)</h3>
+      <p class="desc">The complete roster of 100+ NYC venture investors — from Union Square Ventures and FirstMark Capital to dozens of specialist and diversity-focused funds — who have publicly committed to inclusive investing practices through NYCEDC's Alliance. Membership and each fund's specific focus shift year to year, so it's worth browsing directly for names beyond the ones highlighted in this tool.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://edc.nyc/venture-access-alliance-members" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Non-Dilutive &amp; CDFI</span>
+      <h3>Pursuit</h3>
+      <p class="desc">NYC-based CDFI lender offering small business loans, often reaching founders traditional banks won't.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.pursuitlending.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Non-Dilutive &amp; CDFI</span>
+      <h3>TruFund Financial Services</h3>
+      <p class="desc">CDFI offering loans and technical assistance targeted at underserved small business owners in NYC.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.trufund.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Non-Dilutive &amp; CDFI</span>
+      <h3>Accion Opportunity Fund</h3>
+      <p class="desc">National CDFI with NYC presence providing loans and coaching for underrepresented entrepreneurs.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://aofund.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Non-Dilutive &amp; CDFI</span>
+      <h3>Brooklyn Alliance Capital, Inc</h3>
+      <p class="desc">CDFI affiliate of the Brooklyn Chamber of Commerce offering small business loans and financing guidance to Brooklyn-based founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.brooklynchamber.com/services/financing/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Non-Dilutive &amp; CDFI</span>
+      <h3>Grameen America</h3>
+      <p class="desc">Microloans and financial coaching for women entrepreneurs, with active NYC branches.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.grameenamerica.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>WE NYC (Women Entrepreneurs NYC)</h3>
+      <p class="desc">City-run initiative offering grants, financing navigation, and coaching for women-owned businesses.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://we.nyc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>NYC Business Solutions (SBS)</h3>
+      <p class="desc">Free city-run courses, legal help, and financing navigation for NYC small businesses and startups.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.nyc.gov/sbs" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>NYCEDC</h3>
+      <p class="desc">NYC Economic Development Corporation runs sector initiatives (Cyber NYC and others) and founder-facing programming.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://edc.nyc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>NYC MWBE Certification (SBS)</h3>
+      <p class="desc">City certification unlocking set-aside contracts for minority- and women-owned businesses; start early, it takes months.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.nyc.gov/site/mwbe/index.page" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>NYS Division of Minority &amp; Women's Business Development</h3>
+      <p class="desc">State-level MWBE certification opening access to state contracting opportunities.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://esd.ny.gov/doing-business-ny/mwbe" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>Digital.NYC</h3>
+      <p class="desc">NYCEDC's official directory and events hub for the broader NYC tech ecosystem.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://digital.nyc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Legal &amp; Compliance</span>
+      <h3>Lawyers Alliance for New York</h3>
+      <p class="desc">Pro bono and reduced-fee legal help for nonprofits and mission-driven ventures in NYC.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.lawyersalliance.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Legal &amp; Compliance</span>
+      <h3>NYU Law Startup Law Clinic</h3>
+      <p class="desc">Free legal assistance for early-stage founders provided by supervised NYU law students.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.law.nyu.edu/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Legal &amp; Compliance</span>
+      <h3>Columbia Law Entrepreneurship Clinic</h3>
+      <p class="desc">Law school clinic offering free formation, IP, and contract help to early founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.law.columbia.edu/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Legal &amp; Compliance</span>
+      <h3>Volunteer Lawyers for the Arts</h3>
+      <p class="desc">Pro bono legal support geared toward creative, media, and design-driven ventures.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://vlany.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Legal &amp; Compliance</span>
+      <h3>Ellis Law Group</h3>
+      <p class="desc">NY/CA corporate law firm ranked by Chambers USA among the top firms for startups and emerging companies, covering venture financing, M&amp;A, and IP for growth-stage founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://elg.law/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Tech:NYC</h3>
+      <p class="desc">Nonprofit representing and convening the NYC tech community, active in policy and events.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.technyc.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>NY Tech Alliance</h3>
+      <p class="desc">Long-running community organization (formerly NY Tech Meetup), now the programmatic arm of Civic Hall — 14,000+ members, member-led demo nights and mentorship, with 60%+ of founders who've demoed on its stage from underrepresented backgrounds.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.nytech.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Workspace &amp; Talent</span>
+      <h3>Civic Hall</h3>
+      <p class="desc">Union Square venue and tech-ecosystem hub (a member of The Fedcap Group) hosting events, classes, and a Learning Hub with partners like LaGuardia Community College and The Data School; also home to the NY Tech Alliance.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.civichall.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Black Tech Nation</h3>
+      <p class="desc">Community and network connecting Black tech professionals and founders, with regular NYC programming.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.blacktechnation.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>SCORE NYC</h3>
+      <p class="desc">Free one-on-one mentorship from experienced business executives, with NYC-area chapters.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.score.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>All Raise</h3>
+      <p class="desc">National organization accelerating success for women and nonbinary founders and investors, active in NYC.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.allraise.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Workspace &amp; Talent</span>
+      <h3>Silicon Harlem</h3>
+      <p class="desc">Harlem-based tech advocacy, education, and coworking initiative for underrepresented communities.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.silicon-harlem.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Impact Networks</span>
+      <h3>Echoing Green</h3>
+      <p class="desc">NYC-headquartered fellowship providing seed funding and support to early-stage social entrepreneurs.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://echoinggreen.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Impact Networks</span>
+      <h3>Toniic</h3>
+      <p class="desc">Global impact investor network connecting mission-driven founders to aligned capital.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://toniic.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Impact Networks</span>
+      <h3>Draper Richards Kaplan Foundation</h3>
+      <p class="desc">NYC-based venture philanthropy providing multi-year unrestricted funding to early social enterprises.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.drkfoundation.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Impact Networks</span>
+      <h3>B Lab / NYC B Corp Community</h3>
+      <p class="desc">Certification body and community for mission-driven companies balancing profit and purpose.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.bcorporation.net/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Impact Networks</span>
+      <h3>Endeavor</h3>
+      <p class="desc">Global 'network of trust' that selects high-growth entrepreneurs (3,000+ across 50+ markets) for mentorship, executive education, and access to its Endeavor Catalyst co-investment fund; historically headquartered in New York.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://endeavor.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Impact Networks</span>
+      <h3>Entrepreneurs for Global Change (EGC)</h3>
+      <p class="desc">Network connecting mission-driven and globally-minded entrepreneurs with mentors and capital, recommended via Allegiance's mentor network. Note: the site is JS-heavy and its content couldn't be independently verified here — worth a quick manual check before referring founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.entrepreneursforglobalchange.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>NYC EDC Founder Fellowship (Venture Access NYC)</h3>
+      <p class="desc">NYCEDC's signature Venture Access NYC program placing underrepresented NYC founders into cohorts run by operator partners — Chloe Capital, Company Ventures, Newlab, and Visible Hands — for capital access, mentorship, and pro bono legal support.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://edc.nyc/founder-fellowship" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Chloe Capital</h3>
+      <p class="desc">Seed-stage VC investing with a gender and diversity lens across climate, health, and workforce innovation; runs an annual NYC EDC Founder Fellowship cohort and is recognized on the ImpactAssets 50 impact-manager list.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://chloecapital.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Company Ventures</h3>
+      <p class="desc">NYC-based seed-stage venture firm running a zero-equity, mentor-led fundraising program for underrepresented founders; operates an annual NYC EDC Founder Fellowship cohort.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.companyventures.co/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Visible Hands</h3>
+      <p class="desc">Pre-seed VC platform holistically backing early-stage underrepresented founders; runs the 10-week VHNYC cohort as an NYC EDC Founder Fellowship operator partner.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.visiblehands.vc/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Gold House Ventures</h3>
+      <p class="desc">Early-stage fund and accelerator backing best-in-class multicultural, primarily Asian Pacific founders, paired with Gold House's invite-only founder and investor network.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://goldhouse.org/gold-house-ventures" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>Brooklyn Chamber of Commerce</h3>
+      <p class="desc">Borough business association running economic development programs, financing navigation, and a POC/Testbed Program that pairs underrepresented-founder tech startups with local businesses to pilot products.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://www.brooklynchamber.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Public Sector</span>
+      <h3>Queens Chamber of Commerce</h3>
+      <p class="desc">Queens' business association running the borough's Tech Incubators, Queens Innovation Fund, and Small Business Resource Network for founders and small businesses.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.queenschamber.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Fordham Gabelli School of Business</h3>
+      <p class="desc">Fordham's business school across its Manhattan and Bronx campuses offers entrepreneurship coursework, faculty mentorship, and pitch competitions NYC founders can tap for talent and applied research partnerships.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.fordham.edu/gabelli" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>NFTE (Network for Teaching Entrepreneurship)</h3>
+      <p class="desc">NYC-headquartered (est. 1987) youth entrepreneurship education nonprofit with reach across seven U.S. regions and global partners; 65% of students are people of color, building entrepreneurial mindset and pitch skills at the earliest possible stage, before founders ever incorporate.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://nfte.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>NY Angels</h3>
+      <p class="desc">One of the oldest and most active angel investment groups in the US, giving NYC early-stage founders funding, mentorship, and an extensive investor network.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.newyorkangels.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Equity Funding</span>
+      <h3>Investors' Circle</h3>
+      <p class="desc">Longstanding angel and early-stage investor network dedicated to double- and triple-bottom-line companies, connecting impact-driven founders to mission-aligned capital.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <a class="link" href="https://www.investorscircle.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Tools &amp; Platforms</span>
+      <h3>PitchBook</h3>
+      <p class="desc">Private market data and research platform for tracking investors, comparable deals, and fundraising benchmarks — useful when prepping a raise or building comps for a pitch.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://pitchbook.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Tools &amp; Platforms</span>
+      <h3>Rocket Dollar</h3>
+      <p class="desc">Self-directed IRA/401(k) platform letting friends, family, and angel investors deploy retirement funds directly into startup equity — a capital-access mechanism to point your own investor network toward.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.rocketdollar.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Tools &amp; Platforms</span>
+      <h3>Play Money</h3>
+      <p class="desc">App-based platform that structures SPVs for accredited angel investors to back curated startup deals with minimums as low as $500 — an easy way to bring smaller checks from your own network into a round.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+
+
+      </div>
+      <div class="contact"><span>Founded by Cheryl Kellond</span><span>415-902-3669</span><a href="mailto:C2K@letsplaymoney.com">C2K@letsplaymoney.com</a></div>
+      <a class="link" href="https://www.letsplaymoney.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Entrepreneurs Roundtable Accelerator (ERA)</h3>
+      <p class="desc">NYC's longest-running tech accelerator — two four-month cohorts a year, $150K on a 6% post-money SAFE, 500+ mentors, and 400+ portfolio companies including Bespoke Post and TripleLift.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.eranyc.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Founder Institute</h3>
+      <p class="desc">The world's largest pre-seed accelerator network, with chapters in 100+ countries including New York; low-cost, equity-light program pairing idea-stage founders with local mentors and a global alumni network.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://fi.co/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Betaworks Camp</h3>
+      <p class="desc">NYC venture studio and seed fund running themed 'Camp' cohorts (most recently AI-focused) that combine hands-on building, mentorship, and investment for early founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.betaworks.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>AlleyCorp</h3>
+      <p class="desc">NYC venture studio founded by Kevin Ryan (MongoDB, Business Insider, Zola) that builds and seeds new companies in-house alongside outside founders.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://alleycorp.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Redesign Health</h3>
+      <p class="desc">NYC-based venture studio that co-founds healthcare startups with operators and clinicians, providing capital, infrastructure, and a built-in team from day one.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.redesignhealth.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>South Park Commons (NYC)</h3>
+      <p class="desc">Founder and technologist community with a New York space alongside San Francisco and Bengaluru; offers a no-cost, no-equity residency for people exploring what to build next, plus $1M–$10M in funding for those ready to raise.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.southparkcommons.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>MetaProp</h3>
+      <p class="desc">NYC-based venture capital firm and accelerator focused exclusively on real estate technology (PropTech), with deep ties to the city's major landlords and developers as pilot partners.</p>
+      <div class="tags">
+        <span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.metaprop.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Hampton</h3>
+      <p class="desc">Vetted peer network for founders and CEOs doing $3M+ in revenue or funding, with an active New York chapter — monthly small-group 'Core' meetings plus a broader community of 1,000+ operators.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.joinhampton.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Startup Grind NYC</h3>
+      <p class="desc">Local chapter (15,000+ members) of the global Startup Grind community, running monthly NYC founder talks, demo showcases, and happy hours.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.startupgrind.com/new-york-city" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Data Driven NYC</h3>
+      <p class="desc">Long-running NYC meetup hosted by FirstMark's Matt Turck spotlighting data, AI, and infrastructure founders — a good venue to learn from and be seen by technical investors.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.datadrivennyc.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>TiE New York</h3>
+      <p class="desc">New York chapter of TiE (The Indus Entrepreneurs), a global nonprofit network rooted in the South Asian entrepreneurial community, offering mentoring, events, and an angel network open to founders of all backgrounds.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        <span class="tag-under">Underrepresented-focused</span>
+        
+      </div>
+      <a class="link" href="https://tienewyork.org/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Accelerators &amp; Incubators</span>
+      <h3>Antler</h3>
+      <p class="desc">Global early-stage VC and residency program with a New York location; invests from pre-idea through pre-seed, pairing solo founders with co-founders and writing the first check.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.antler.co/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  
+    <div class="card">
+      <span class="cat-tag">Mentorship &amp; Community</span>
+      <h3>Gary's Guide &amp; next.NYC (NYC Meetup &amp; Newsletter Trackers)</h3>
+      <p class="desc">The two most-used trackers for the sprawling NYC meetup and events scene — Gary's Guide's daily events calendar and the next.NYC newsletter. New founder breakfast clubs, dinner series, and vertical meetups (fintech, climate, hardware, and more) launch constantly and are too numerous to catalog individually here; subscribe to these two to keep up.</p>
+      <div class="tags">
+        <span class="tag-stage">Idea &amp; Validation</span><span class="tag-stage">Formation &amp; Pre-Seed</span><span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+        
+        
+      </div>
+      <a class="link" href="https://www.garysguide.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+
+    <div class="card">
+      <span class="cat-tag">Non-Dilutive &amp; CDFI</span>
+      <h3>LENDonate</h3>
+      <p class="desc">Marketplace lending platform connecting individual investors and philanthropists with nonprofits and social-impact organizations — blending below-market-rate loans and donations to fund specific projects (typically $50K+). A non-dilutive capital channel for mission-driven organizations that sit outside the traditional equity-funding track.</p>
+      <div class="tags">
+        <span class="tag-stage">Seed &amp; Early Traction</span><span class="tag-stage">Growth &amp; Scale</span>
+
+        <span class="tag-impact">Impact-focused</span>
+      </div>
+      <div class="contact"><span>Founded by Vivienne Hsu, CFA (Founder &amp; CEO)</span><span>650-537-9460</span></div>
+      <a class="link" href="https://www.lendonate.com/" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>About this tool.</strong> Curated as a starting methodology, not an exhaustive or verified real-time directory. Program eligibility, application cycles, and even whether an organization is still active can change quickly in this ecosystem — confirm details directly with each organization before relying on them or referring founders. Contents reflect research compiled through mid-2025 sources and general knowledge of the NYC startup ecosystem.</p>
+    <p>An Allegiance Partners resource. Suggested next step: assign an owner to review and refresh this list quarterly, and add your own portfolio-specific resources (warm intros, in-house mentors, preferred legal/accounting partners).</p>
+  </footer>
+</div>
+
+<script>
+const STAGES = [
+  {key:'idea', label:'Idea & Validation', blurb:'Test the problem, not the product.', guide:'Focus on customer discovery and validating both the problem and your theory of change before spending on incorporation or product build. Lean on free clinics, fellowships, and city programs rather than paid services. This is also the moment to get honest about your impact thesis: what changes, for whom, and how you will know.'},
+  {key:'preseed', label:'Formation & Pre-Seed', blurb:'Incorporate, build MVP, assemble the team.', guide:'Choose a legal structure that matches your capital strategy (Delaware C-corp is standard for VC-track; consider a benefit corporation or PBC if mission-lock matters to your investors and team). Start MWBE certification now — it takes months and pays off later. Raise pre-seed from friends/family, pre-seed funds, and prize competitions, and use accelerators to compress your learning curve.'},
+  {key:'seed', label:'Seed & Early Traction', blurb:'Prove the model, raise the round.', guide:'Target funds and angel networks with an explicit underrepresented- or impact-founder thesis — they will underwrite risk others won’t. Formalize your cap table, IP assignments, and board. Start tracking impact metrics now if you’ll need them for impact investors later; retrofitting measurement is much harder than building it in.'},
+  {key:'growth', label:'Growth & Scale', blurb:'Institutionalize, scale, mentor others.', guide:'Series A+ often means blending growth-stage VC with mission-aligned or impact capital. Formalize HR, compliance, and governance. Lean on city partnerships (NYCEDC, MWBE contracts) as a genuine revenue and credibility channel. This is also the stage to start giving back — mentor and angel-invest in the next cohort of underrepresented founders behind you.'}
+];
+
+const CATEGORIES = [
+  {key:'funding-equity', label:'Equity Funding'},
+  {key:'funding-nondilutive', label:'Non-Dilutive & CDFI'},
+  {key:'accelerator', label:'Accelerators & Incubators'},
+  {key:'legal', label:'Legal & Compliance'},
+  {key:'mentorship', label:'Mentorship & Community'},
+  {key:'workspace', label:'Workspace & Talent'},
+  {key:'impact', label:'Impact Networks'},
+  {key:'public', label:'Public Sector'},
+  {key:'tools', label:'Tools & Platforms'}
+];
+
+const RESOURCES = [
+  {name:"Techstars NYC", cat:"accelerator", stages:["preseed","seed"], under:false, impact:false, url:"https://www.techstars.com", desc:"Global accelerator brand with an active NYC program; mentorship-driven, equity-for-cash model."},
+  {name:"Newlab", cat:"accelerator", stages:["seed","growth"], under:true, impact:true, url:"https://newlab.com", desc:"Brooklyn Navy Yard deep-tech and climate hub with lab space, community, and investor access; also runs an annual NYC EDC Founder Fellowship cohort focused on lowering barriers to commercialization."},
+  {name:"Grand Central Tech", cat:"accelerator", stages:["seed"], under:false, impact:false, url:"https://gct.co", desc:"NYC accelerator offering free office space in Manhattan in exchange for a small equity stake."},
+  {name:"Company", cat:"workspace", stages:["idea","preseed"], under:true, impact:false, url:"https://www.company.co", desc:"Bed-Stuy Brooklyn workspace and community built for underrepresented tech founders and professionals."},
+  {name:"Cornell Tech Runway / Startup Studio", cat:"accelerator", stages:["idea","preseed"], under:false, impact:false, url:"https://tech.cornell.edu", desc:"Roosevelt Island research-to-startup pipeline with postdoc and studio tracks for early venture formation."},
+  {name:"NYU Tandon Future Labs", cat:"accelerator", stages:["idea","preseed","seed"], under:false, impact:true, url:"https://www.futurelabs.nyc", desc:"Network of NYU-affiliated incubators across urban tech, digital health, cyber, and veteran-founded ventures."},
+  {name:"Blue Ridge Labs @ Robin Hood", cat:"accelerator", stages:["idea","preseed"], under:true, impact:true, url:"https://www.blueridgelabs.org", desc:"NYC fellowship building tech products aimed at economic mobility for low-income New Yorkers."},
+  {name:"Black Ambition", cat:"accelerator", stages:["idea","preseed","seed"], under:true, impact:false, url:"https://blackambitionprize.com", desc:"National prize competition and support programming for Black and Latinx founders, active in NYC cohorts."},
+  {name:"Camelback Ventures", cat:"accelerator", stages:["idea","preseed","seed"], under:true, impact:true, url:"https://camelbackventures.org", desc:"Fellowship providing capital and coaching to women and entrepreneurs of color building mission-driven ventures."},
+  {name:"StartOut", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.startout.org", desc:"National network and programming for LGBTQ+ founders with active NYC chapter events."},
+  {name:"Founder Gym", cat:"mentorship", stages:["idea","preseed"], under:true, impact:false, url:"https://www.foundergym.com", desc:"Online training program preparing underrepresented founders to fundraise with confidence."},
+  {name:"Village Capital", cat:"accelerator", stages:["preseed","seed"], under:true, impact:true, url:"https://vilcap.com", desc:"Runs sector-specific impact accelerator cohorts with peer-selected investment; frequent NYC-based programs."},
+  {name:"Fast Forward", cat:"accelerator", stages:["seed","growth"], under:false, impact:true, url:"https://www.ffwd.org", desc:"Accelerator exclusively for tech nonprofits solving large-scale social problems."},
+  {name:"SEED SPOT", cat:"accelerator", stages:["idea","preseed"], under:true, impact:true, url:"https://seedspot.org", desc:"Impact-focused accelerator and training programs supporting underrepresented social entrepreneurs."},
+  {name:"Scale Ready Studio", cat:"accelerator", stages:["growth"], under:true, impact:false, url:"https://scalereadystudio.com", desc:"WE NYC (women.nyc) 12-week revenue-growth accelerator for women-identifying and non-binary founders with existing revenue — go-to-market, sales systems, and founder-independent operations; free, no equity taken."},
+  {name:"Harlem Capital", cat:"funding-equity", stages:["preseed","seed","growth"], under:true, impact:false, url:"https://www.harlem.capital", desc:"NYC-based VC firm with a mission to change the face of entrepreneurship, investing in minority and women founders."},
+  {name:"Concrete Rose Capital", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.concreterosecapital.com", desc:"Fund investing in Black and Latina women-led technology companies."},
+  {name:"Female Founders Fund", cat:"funding-equity", stages:["seed","growth"], under:true, impact:false, url:"https://www.femalefoundersfund.com", desc:"NYC-based venture fund investing exclusively in women-led companies from seed stage."},
+  {name:"Precursor Ventures", cat:"funding-equity", stages:["idea","preseed"], under:false, impact:false, url:"https://precursorvc.com", desc:"Pre-seed fund known for backing first-time and underrepresented founders very early."},
+  {name:"Impact America Fund", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:true, url:"https://www.impactamericafund.com", desc:"Fund investing in underrepresented founders building technology for underserved communities."},
+  {name:"Zeal Capital Partners", cat:"funding-equity", stages:["seed","growth"], under:true, impact:true, url:"https://www.zealcap.com", desc:"'Inclusive economy' focused fund investing in fintech, future of work, and education companies."},
+  {name:"Golden Seeds", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://goldenseeds.com", desc:"Angel investor network focused on women-led businesses, active with NYC chapter events."},
+  {name:"Gingerbread Capital", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.gingerbreadcapital.com", desc:"NYC-based angel fund investing in women-led consumer and tech startups."},
+  {name:"Kapor Capital", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:true, url:"https://www.kaporcapital.com", desc:"Impact-driven VC investing in closing gaps of access, opportunity, or outcome for underrepresented communities."},
+  {name:"The Venture Collective (TVC)", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:true, url:"https://www.theventurecollective.com", desc:"NYC-based permanent balance-sheet investor backing mission-driven and overlooked founders from incorporation through Series A, pairing capital with hands-on operational support."},
+  {name:"Anthemis Group", cat:"funding-equity", stages:["preseed","seed","growth"], under:true, impact:false, url:"https://www.anthemis.com", desc:"Fintech-focused VC with NYC and London offices; runs the Female Innovators Lab for women-founded fintechs and invests from pre-seed through growth."},
+  {name:"Gaingels", cat:"funding-equity", stages:["preseed","seed","growth"], under:true, impact:false, url:"https://gaingels.com", desc:"One of the most active LGBTQIA+/allies investor syndicates, co-investing alongside lead VCs and providing diverse board-member placement for portfolio companies."},
+  {name:"One Way Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.onewayvc.com", desc:"Backs startups with at least one immigrant founder, drawing on the team's own immigrant experience to evaluate early-stage risk and opportunity."},
+  {name:"Unshackled Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.unshackledvc.com", desc:"The first check for 'Day 0' immigrant founders — invests pre-product and pre-visa, sponsoring visas directly as the founders' employer of record while founders retain ownership."},
+  {name:"L'ATTITUDE Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.lattitude.ventures", desc:"Early-stage fund investing exclusively in Latino-owned, high-growth companies through a $100M+ institutional fund tied to the L'ATTITUDE platform."},
+  {name:"Backstage Capital", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://backstagecapital.com", desc:"Founded by Arlan Hamilton, one of the most visible funds backing women, people of color, and LGBTQ+ founders; new-investment pace has slowed in recent years, so confirm current activity before pitching."},
+  {name:"WOCstar Fund", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.wocstar.com", desc:"NYC-based fund backing women of color founders in tech, media, and consumer, paired with Wocstar Academy's capital-readiness training for founders and allies."},
+  {name:"Overlooked Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.overlooked.ventures", desc:"Early-stage investor specializing in companies founded by historically overlooked founders."},
+  {name:"Vamos Ventures", cat:"funding-equity", stages:["seed","growth"], under:true, impact:false, url:"https://www.vamos.vc", desc:"Invests at seed and early stages in U.S. Hispanic and underrepresented tech-enabled founders, combining private-equity discipline with a social-mobility focus."},
+  {name:"Reign Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://www.reign.vc", desc:"Inclusive early-stage investor offering hands-on support and network access to underrepresented founders across sectors."},
+  {name:"Collide Capital", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://collidecap.com", desc:"100% Black-owned fund founded by the creators of AfroTech and BLCK VC, backing diverse founding teams from pre-seed to Series A across fintech, supply chain, and enterprise software."},
+  {name:"NYC EDC Venture Access Alliance (Full Member Directory)", cat:"public", stages:["preseed","seed","growth"], under:true, impact:false, url:"https://edc.nyc/venture-access-alliance-members", desc:"The complete roster of 100+ NYC venture investors — from Union Square Ventures and FirstMark Capital to dozens of specialist and diversity-focused funds — who have publicly committed to inclusive investing practices through NYCEDC's Alliance. Membership and each fund's specific focus shift year to year, so it's worth browsing directly for names beyond the ones highlighted in this tool."},
+  {name:"Pursuit", cat:"funding-nondilutive", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.pursuitlending.com", desc:"NYC-based CDFI lender offering small business loans, often reaching founders traditional banks won't."},
+  {name:"TruFund Financial Services", cat:"funding-nondilutive", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.trufund.org", desc:"CDFI offering loans and technical assistance targeted at underserved small business owners in NYC."},
+  {name:"Accion Opportunity Fund", cat:"funding-nondilutive", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://aofund.org", desc:"National CDFI with NYC presence providing loans and coaching for underrepresented entrepreneurs."},
+  {name:"Brooklyn Alliance Capital, Inc", cat:"funding-nondilutive", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.brooklynchamber.com/services/financing/", desc:"CDFI affiliate of the Brooklyn Chamber of Commerce offering small business loans and financing guidance to Brooklyn-based founders."},
+  {name:"Grameen America", cat:"funding-nondilutive", stages:["idea","preseed"], under:true, impact:true, url:"https://www.grameenamerica.org", desc:"Microloans and financial coaching for women entrepreneurs, with active NYC branches."},
+  {name:"WE NYC (Women Entrepreneurs NYC)", cat:"public", stages:["idea","preseed","seed"], under:true, impact:false, url:"https://we.nyc", desc:"City-run initiative offering grants, financing navigation, and coaching for women-owned businesses."},
+  {name:"NYC Business Solutions (SBS)", cat:"public", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://www.nyc.gov/sbs", desc:"Free city-run courses, legal help, and financing navigation for NYC small businesses and startups."},
+  {name:"NYCEDC", cat:"public", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://edc.nyc", desc:"NYC Economic Development Corporation runs sector initiatives (Cyber NYC and others) and founder-facing programming."},
+  {name:"NYC MWBE Certification (SBS)", cat:"public", stages:["seed","growth"], under:true, impact:false, url:"https://www.nyc.gov/site/mwbe/index.page", desc:"City certification unlocking set-aside contracts for minority- and women-owned businesses; start early, it takes months."},
+  {name:"NYS Division of Minority & Women's Business Development", cat:"public", stages:["seed","growth"], under:true, impact:false, url:"https://esd.ny.gov/doing-business-ny/mwbe", desc:"State-level MWBE certification opening access to state contracting opportunities."},
+  {name:"Digital.NYC", cat:"public", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://digital.nyc", desc:"NYCEDC's official directory and events hub for the broader NYC tech ecosystem."},
+  {name:"Lawyers Alliance for New York", cat:"legal", stages:["idea","preseed","seed","growth"], under:false, impact:true, url:"https://www.lawyersalliance.org", desc:"Pro bono and reduced-fee legal help for nonprofits and mission-driven ventures in NYC."},
+  {name:"NYU Law Startup Law Clinic", cat:"legal", stages:["idea","preseed"], under:false, impact:false, url:"https://www.law.nyu.edu", desc:"Free legal assistance for early-stage founders provided by supervised NYU law students."},
+  {name:"Columbia Law Entrepreneurship Clinic", cat:"legal", stages:["idea","preseed"], under:false, impact:false, url:"https://www.law.columbia.edu", desc:"Law school clinic offering free formation, IP, and contract help to early founders."},
+  {name:"Volunteer Lawyers for the Arts", cat:"legal", stages:["idea","preseed","seed"], under:false, impact:false, url:"https://vlany.org", desc:"Pro bono legal support geared toward creative, media, and design-driven ventures."},
+  {name:"Ellis Law Group", cat:"legal", stages:["preseed","seed","growth"], under:false, impact:false, url:"https://elg.law", desc:"NY/CA corporate law firm ranked by Chambers USA among the top firms for startups and emerging companies, covering venture financing, M&A, and IP for growth-stage founders."},
+  {name:"Tech:NYC", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://www.technyc.org", desc:"Nonprofit representing and convening the NYC tech community, active in policy and events."},
+  {name:"NY Tech Alliance", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.nytech.org", desc:"Long-running community organization (formerly NY Tech Meetup), now the programmatic arm of Civic Hall — 14,000+ members, member-led demo nights and mentorship, with 60%+ of founders who've demoed on its stage from underrepresented backgrounds."},
+  {name:"Civic Hall", cat:"workspace", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.civichall.org", desc:"Union Square venue and tech-ecosystem hub (a member of The Fedcap Group) hosting events, classes, and a Learning Hub with partners like LaGuardia Community College and The Data School; also home to the NY Tech Alliance."},
+  {name:"Black Tech Nation", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.blacktechnation.com", desc:"Community and network connecting Black tech professionals and founders, with regular NYC programming."},
+  {name:"SCORE NYC", cat:"mentorship", stages:["idea","preseed","seed"], under:false, impact:false, url:"https://www.score.org", desc:"Free one-on-one mentorship from experienced business executives, with NYC-area chapters."},
+  {name:"All Raise", cat:"mentorship", stages:["preseed","seed","growth"], under:true, impact:false, url:"https://www.allraise.org", desc:"National organization accelerating success for women and nonbinary founders and investors, active in NYC."},
+  {name:"Silicon Harlem", cat:"workspace", stages:["idea","preseed","seed"], under:true, impact:true, url:"https://www.silicon-harlem.org", desc:"Harlem-based tech advocacy, education, and coworking initiative for underrepresented communities."},
+  {name:"Echoing Green", cat:"impact", stages:["idea","preseed"], under:true, impact:true, url:"https://echoinggreen.org", desc:"NYC-headquartered fellowship providing seed funding and support to early-stage social entrepreneurs."},
+  {name:"Toniic", cat:"impact", stages:["seed","growth"], under:false, impact:true, url:"https://toniic.com", desc:"Global impact investor network connecting mission-driven founders to aligned capital."},
+  {name:"Draper Richards Kaplan Foundation", cat:"impact", stages:["seed","growth"], under:false, impact:true, url:"https://www.drkfoundation.org", desc:"NYC-based venture philanthropy providing multi-year unrestricted funding to early social enterprises."},
+  {name:"B Lab / NYC B Corp Community", cat:"impact", stages:["seed","growth"], under:false, impact:true, url:"https://www.bcorporation.net", desc:"Certification body and community for mission-driven companies balancing profit and purpose."},
+  {name:"Endeavor", cat:"impact", stages:["seed","growth"], under:false, impact:true, url:"https://endeavor.org", desc:"Global 'network of trust' that selects high-growth entrepreneurs (3,000+ across 50+ markets) for mentorship, executive education, and access to its Endeavor Catalyst co-investment fund; historically headquartered in New York."},
+  {name:"Entrepreneurs for Global Change (EGC)", cat:"impact", stages:["seed","growth"], under:false, impact:true, url:"https://www.entrepreneursforglobalchange.org", desc:"Network connecting mission-driven and globally-minded entrepreneurs with mentors and capital, recommended via Allegiance's mentor network. Note: the site is JS-heavy and its content couldn't be independently verified here — worth a quick manual check before referring founders."},
+  {name:"NYC EDC Founder Fellowship (Venture Access NYC)", cat:"accelerator", stages:["preseed","seed"], under:true, impact:true, url:"https://edc.nyc/founder-fellowship", desc:"NYCEDC's signature Venture Access NYC program placing underrepresented NYC founders into cohorts run by operator partners — Chloe Capital, Company Ventures, Newlab, and Visible Hands — for capital access, mentorship, and pro bono legal support."},
+  {name:"Chloe Capital", cat:"funding-equity", stages:["preseed","seed","growth"], under:true, impact:true, url:"https://chloecapital.com", desc:"Seed-stage VC investing with a gender and diversity lens across climate, health, and workforce innovation; runs an annual NYC EDC Founder Fellowship cohort and is recognized on the ImpactAssets 50 impact-manager list."},
+  {name:"Company Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:true, url:"https://www.companyventures.co", desc:"NYC-based seed-stage venture firm running a zero-equity, mentor-led fundraising program for underrepresented founders; operates an annual NYC EDC Founder Fellowship cohort."},
+  {name:"Visible Hands", cat:"funding-equity", stages:["idea","preseed","seed"], under:true, impact:true, url:"https://www.visiblehands.vc", desc:"Pre-seed VC platform holistically backing early-stage underrepresented founders; runs the 10-week VHNYC cohort as an NYC EDC Founder Fellowship operator partner."},
+  {name:"Gold House Ventures", cat:"funding-equity", stages:["preseed","seed"], under:true, impact:false, url:"https://goldhouse.org/gold-house-ventures", desc:"Early-stage fund and accelerator backing best-in-class multicultural, primarily Asian Pacific founders, paired with Gold House's invite-only founder and investor network."},
+  {name:"Brooklyn Chamber of Commerce", cat:"public", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://www.brooklynchamber.com", desc:"Borough business association running economic development programs, financing navigation, and a POC/Testbed Program that pairs underrepresented-founder tech startups with local businesses to pilot products."},
+  {name:"Queens Chamber of Commerce", cat:"public", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://www.queenschamber.org", desc:"Queens' business association running the borough's Tech Incubators, Queens Innovation Fund, and Small Business Resource Network for founders and small businesses."},
+  {name:"Fordham Gabelli School of Business", cat:"mentorship", stages:["idea","preseed"], under:false, impact:false, url:"https://www.fordham.edu/gabelli", desc:"Fordham's business school across its Manhattan and Bronx campuses offers entrepreneurship coursework, faculty mentorship, and pitch competitions NYC founders can tap for talent and applied research partnerships."},
+  {name:"NFTE (Network for Teaching Entrepreneurship)", cat:"mentorship", stages:["idea"], under:true, impact:true, url:"https://nfte.com", desc:"NYC-headquartered (est. 1987) youth entrepreneurship education nonprofit with reach across seven U.S. regions and global partners; 65% of students are people of color, building entrepreneurial mindset and pitch skills at the earliest possible stage, before founders ever incorporate."},
+  {name:"NY Angels", cat:"funding-equity", stages:["preseed","seed"], under:false, impact:false, url:"https://www.newyorkangels.com", desc:"One of the oldest and most active angel investment groups in the US, giving NYC early-stage founders funding, mentorship, and an extensive investor network."},
+  {name:"Investors' Circle", cat:"funding-equity", stages:["seed","growth"], under:false, impact:true, url:"https://www.investorscircle.org", desc:"Longstanding angel and early-stage investor network dedicated to double- and triple-bottom-line companies, connecting impact-driven founders to mission-aligned capital."},
+  {name:"PitchBook", cat:"tools", stages:["seed","growth"], under:false, impact:false, url:"https://pitchbook.com", desc:"Private market data and research platform for tracking investors, comparable deals, and fundraising benchmarks — useful when prepping a raise or building comps for a pitch."},
+  {name:"Rocket Dollar", cat:"tools", stages:["preseed","seed","growth"], under:false, impact:false, url:"https://www.rocketdollar.com", desc:"Self-directed IRA/401(k) platform letting friends, family, and angel investors deploy retirement funds directly into startup equity — a capital-access mechanism to point your own investor network toward."},
+  {name:"Play Money", cat:"tools", stages:["preseed","seed"], under:false, impact:false, url:"https://www.letsplaymoney.com", desc:"App-based platform that structures SPVs for accredited angel investors to back curated startup deals with minimums as low as $500 — an easy way to bring smaller checks from your own network into a round.", founder:"Cheryl Kellond", email:"C2K@letsplaymoney.com", phone:"415-902-3669"},
+  {name:"Entrepreneurs Roundtable Accelerator (ERA)", cat:"accelerator", stages:["preseed","seed"], under:false, impact:false, url:"https://www.eranyc.com", desc:"NYC's longest-running tech accelerator — two four-month cohorts a year, $150K on a 6% post-money SAFE, 500+ mentors, and 400+ portfolio companies including Bespoke Post and TripleLift."},
+  {name:"Founder Institute", cat:"accelerator", stages:["idea","preseed"], under:false, impact:false, url:"https://fi.co", desc:"The world's largest pre-seed accelerator network, with chapters in 100+ countries including New York; low-cost, equity-light program pairing idea-stage founders with local mentors and a global alumni network."},
+  {name:"Betaworks Camp", cat:"accelerator", stages:["idea","preseed","seed"], under:false, impact:false, url:"https://www.betaworks.com", desc:"NYC venture studio and seed fund running themed 'Camp' cohorts (most recently AI-focused) that combine hands-on building, mentorship, and investment for early founders."},
+  {name:"AlleyCorp", cat:"accelerator", stages:["idea","preseed","seed"], under:false, impact:false, url:"https://alleycorp.com", desc:"NYC venture studio founded by Kevin Ryan (MongoDB, Business Insider, Zola) that builds and seeds new companies in-house alongside outside founders."},
+  {name:"Redesign Health", cat:"accelerator", stages:["idea","preseed","seed"], under:false, impact:false, url:"https://www.redesignhealth.com", desc:"NYC-based venture studio that co-founds healthcare startups with operators and clinicians, providing capital, infrastructure, and a built-in team from day one."},
+  {name:"South Park Commons (NYC)", cat:"mentorship", stages:["idea","preseed"], under:false, impact:false, url:"https://www.southparkcommons.com", desc:"Founder and technologist community with a New York space alongside San Francisco and Bengaluru; offers a no-cost, no-equity residency for people exploring what to build next, plus $1M–$10M in funding for those ready to raise."},
+  {name:"MetaProp", cat:"accelerator", stages:["preseed","seed","growth"], under:false, impact:false, url:"https://www.metaprop.com", desc:"NYC-based venture capital firm and accelerator focused exclusively on real estate technology (PropTech), with deep ties to the city's major landlords and developers as pilot partners."},
+  {name:"Hampton", cat:"mentorship", stages:["seed","growth"], under:false, impact:false, url:"https://www.joinhampton.com", desc:"Vetted peer network for founders and CEOs doing $3M+ in revenue or funding, with an active New York chapter — monthly small-group 'Core' meetings plus a broader community of 1,000+ operators."},
+  {name:"Startup Grind NYC", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://www.startupgrind.com/new-york-city", desc:"Local chapter (15,000+ members) of the global Startup Grind community, running monthly NYC founder talks, demo showcases, and happy hours."},
+  {name:"Data Driven NYC", cat:"mentorship", stages:["seed","growth"], under:false, impact:false, url:"https://www.datadrivennyc.com", desc:"Long-running NYC meetup hosted by FirstMark's Matt Turck spotlighting data, AI, and infrastructure founders — a good venue to learn from and be seen by technical investors."},
+  {name:"TiE New York", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:true, impact:false, url:"https://tienewyork.org", desc:"New York chapter of TiE (The Indus Entrepreneurs), a global nonprofit network rooted in the South Asian entrepreneurial community, offering mentoring, events, and an angel network open to founders of all backgrounds."},
+  {name:"Antler", cat:"accelerator", stages:["idea","preseed"], under:false, impact:false, url:"https://www.antler.co", desc:"Global early-stage VC and residency program with a New York location; invests from pre-idea through pre-seed, pairing solo founders with co-founders and writing the first check."},
+  {name:"Gary's Guide & next.NYC (NYC Meetup & Newsletter Trackers)", cat:"mentorship", stages:["idea","preseed","seed","growth"], under:false, impact:false, url:"https://www.garysguide.com", desc:"The two most-used trackers for the sprawling NYC meetup and events scene — Gary's Guide's daily events calendar and the next.NYC newsletter. New founder breakfast clubs, dinner series, and vertical meetups (fintech, climate, hardware, and more) launch constantly and are too numerous to catalog individually here; subscribe to these two to keep up."},
+  {name:"LENDonate", cat:"funding-nondilutive", stages:["seed","growth"], under:false, impact:true, url:"https://www.lendonate.com", desc:"Marketplace lending platform connecting individual investors and philanthropists with nonprofits and social-impact organizations — blending below-market-rate loans and donations to fund specific projects (typically $50K+). A non-dilutive capital channel for mission-driven organizations that sit outside the traditional equity-funding track.", founder:"Vivienne Hsu, CFA (Founder & CEO)", phone:"650-537-9460"}
+];
+
+const LEGAL_PRACTICES = [
+  {key:'basic-estate', label:'Basic Estate Planning'},
+  {key:'advanced-estate', label:'Advanced Estate & Tax Planning'},
+  {key:'corp-incorporation', label:'Corporate Incorporation'},
+  {key:'ma', label:'M&A'},
+  {key:'real-estate', label:'Real Estate'}
+];
+
+const ADVISORS = [
+  // LEGAL
+  {name:"Will Gillen", firm:"Law Offices of William S. Gillen", discipline:"legal", practices:["basic-estate","real-estate"], phone:"(646) 248-5398", url:"https://www.gillenlegal.com", desc:"Brooklyn-based solo practice handling probate, estate planning, elder law, and real estate transactions — an accessible option for founders' personal estate planning."},
+  {name:"Paul Ellis", firm:"Ellis Law Group LLC (Managing Partner)", discipline:"legal", practices:["basic-estate","advanced-estate","corp-incorporation","ma"], url:"https://elg.law", desc:"NY/CA corporate firm ranked by Chambers USA for startups and emerging companies; also handles personal estate planning for founders and their families across formation, growth, and exit."},
+  {name:"Michael S. Arlein", firm:"Patterson Belknap Webb & Tyler LLP", discipline:"legal", practices:["advanced-estate"], url:"https://www.pbwt.com", desc:"Partner in the firm's Exempt Organizations & Private Clients practice at this ~200-lawyer NYC firm advising private clients, trusts, and tax-exempt entities."},
+  {name:"Michael Gooen", firm:"Lowenstein Sandler LLP", discipline:"legal", practices:["advanced-estate"], url:"https://www.lowenstein.com", desc:"Partner in Private Client Services at this 400+ lawyer national firm, also one of the most active venture capital and startup-formation practices in the country."},
+  {name:"Michael M. Gordon", firm:"Gordon, Fournaris & Mammarella, P.A.", discipline:"legal", practices:["advanced-estate"], url:"https://www.gfmlaw.com", desc:"Delaware trusts and estates specialist — Allegiance's go-to for Delaware trust structuring."},
+  {name:"Beth D. Tractenberg", firm:"Steptoe LLP", discipline:"legal", practices:["advanced-estate"], url:"https://www.steptoe.com", desc:"Partner at this global law firm's private client practice, advising on sophisticated estate and tax planning."},
+  {name:"James H. Yoo, CPA", firm:"Sebit LLP (Managing Partner)", discipline:"legal", practices:["corp-incorporation"], phone:"(212) 354-5570", mobile:"(917) 295-9333", email:"JYOO@SEBITLLP.COM", address:"1430 Broadway, Suite 600, New York, NY 10018", url:"https://www.sebitllp.com", desc:"CPA firm assisting founders with entity formation, bookkeeping, and tax from day one."},
+  {name:"Osahon Okundaye", firm:"Okundaye Legal PLLC", discipline:"legal", practices:["corp-incorporation","ma"], phone:"718-208-6080", email:"osahon@okundayelegal.com", url:"https://www.okundayelegal.com", desc:"Boutique Brooklyn impact-finance and structured-finance firm — fund formation, CDFI capital access, and entity structuring on fixed fees."},
+  {name:"Cooley GO", firm:"Cooley LLP", discipline:"legal", practices:["basic-estate","advanced-estate","corp-incorporation","ma","real-estate"], url:"https://www.cooleygo.com", desc:"Cooley's free legal resource platform, covering the full company lifecycle from formation and IP through fundraising, governance, and exit — a self-serve companion to the named advisors above, not a substitute for one."},
+  {name:"Davidoff Hutcher & Citron LLP", discipline:"legal", practices:["basic-estate","real-estate"], url:"https://www.dhclegal.com", desc:"Full-service NYC firm (est. 1975) with dedicated Real Estate and Trusts & Estates practices among 15+ practice areas."},
+  {name:"Rosenberg & Estis, P.C.", discipline:"legal", practices:["real-estate"], url:"https://www.rosenbergestis.com", desc:"NYC's premier real estate law firm since 1975, handling acquisitions, sales, leases, and related commercial real estate transactions."},
+  // CPA / ACCOUNTING
+  {name:"James H. Yoo, CPA", firm:"Sebit LLP (Managing Partner)", discipline:"cpa", phone:"(212) 354-5570", mobile:"(917) 295-9333", email:"JYOO@SEBITLLP.COM", address:"1430 Broadway, Suite 600, New York, NY 10018", url:"https://www.sebitllp.com", desc:"CPA firm assisting founders with entity formation, bookkeeping, and tax from day one."},
+  {name:"EisnerAmper LLP", discipline:"cpa", url:"https://www.eisneramper.com", desc:"NYC-based national firm (4,500+ professionals) with a dedicated Startups practice and Technology Companies industry group; also a NY Tech Alliance partner."},
+  {name:"Withum (WithumSmith+Brown, PC)", discipline:"cpa", url:"https://www.withum.com", desc:"National firm with a dedicated Technology and Emerging Growth industry practice and NY/NJ offices, serving venture-backed companies from formation through scale."}
+];
+
+let state = {
+  stage: null,
+  cats: new Set(),
+  under: false,
+  impact: false,
+  query: ''
+};
+
+function matches(r){
+  if(state.stage && !r.stages.includes(state.stage)) return false;
+  if(state.cats.size && !state.cats.has(r.cat)) return false;
+  if(state.under && !r.under) return false;
+  if(state.impact && !r.impact) return false;
+  if(state.query){
+    const q = state.query.toLowerCase();
+    if(!r.name.toLowerCase().includes(q) && !r.desc.toLowerCase().includes(q) && !catLabel(r.cat).toLowerCase().includes(q)) return false;
+  }
+  return true;
+}
+
+function catLabel(key){ return (CATEGORIES.find(c=>c.key===key)||{}).label || key; }
+function stageLabel(key){ return (STAGES.find(s=>s.key===key)||{}).label || key; }
+
+function renderJourney(){
+  const el = document.getElementById('journey');
+  el.innerHTML = STAGES.map((s,i)=>{
+    const count = RESOURCES.filter(r=>r.stages.includes(s.key)).length;
+    return `<div class="stage-node ${state.stage===s.key?'active':''}" data-stage="${s.key}">
+      <span class="num">${i+1}</span>
+      <h3>${s.label}</h3>
+      <p>${s.blurb}</p>
+      <div class="count">${count} resources</div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.stage-node').forEach(node=>{
+    node.addEventListener('click', ()=>{
+      const key = node.getAttribute('data-stage');
+      state.stage = state.stage===key ? null : key;
+      renderAll();
+    });
+  });
+}
+
+function renderFieldGuide(){
+  const el = document.getElementById('fieldGuide');
+  if(!state.stage){
+    el.innerHTML = `<h4>Methodology</h4><p>Select a stage above to see focused guidance, or browse the full matrix and directory below. This tool pairs a journey-stage lens with a category lens so you can find the right kind of help at the right moment — not just a long list of logos.</p>`;
+    return;
+  }
+  const s = STAGES.find(s=>s.key===state.stage);
+  el.innerHTML = `<h4>${s.label} — what to focus on</h4><p>${s.guide}</p>`;
+}
+
+function renderMatrix(){
+  const el = document.getElementById('matrixWrap');
+  let html = '<table class="matrix"><thead><tr><th>Category</th>' + STAGES.map(s=>`<th>${s.label}</th>`).join('') + '</tr></thead><tbody>';
+  CATEGORIES.forEach(c=>{
+    html += `<tr><td class="rowlabel">${c.label}</td>`;
+    STAGES.forEach(s=>{
+      const n = RESOURCES.filter(r=>r.cat===c.key && r.stages.includes(s.key)).length;
+      html += `<td class="cell ${n===0?'zero':''}" data-stage="${s.key}" data-cat="${c.key}">${n||'—'}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  el.innerHTML = html;
+  el.querySelectorAll('td.cell:not(.zero)').forEach(td=>{
+    td.addEventListener('click', ()=>{
+      state.stage = td.getAttribute('data-stage');
+      state.cats = new Set([td.getAttribute('data-cat')]);
+      renderAll();
+      document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+
+function renderEcosystemMap(){
+  const wrap = document.getElementById('mapWrap');
+  if(!wrap) return;
+  const W = 860, H = 620, R = 235, cx = W/2, cy = H/2;
+  let linesHtml = '';
+  let nodesHtml = '';
+  let fallbackHtml = '';
+  CATEGORIES.forEach((c,i)=>{
+    const angle = (i / CATEGORIES.length) * 2 * Math.PI - Math.PI/2;
+    const x = Math.round(cx + R*Math.cos(angle));
+    const y = Math.round(cy + R*Math.sin(angle));
+    const items = RESOURCES.filter(r=>r.cat===c.key);
+    const shown = items.slice(0,3).map(r=>r.name).join(' · ');
+    const more = items.length>3 ? ` +${items.length-3} more` : '';
+    const activeCls = state.cats.has(c.key) ? 'active' : '';
+    linesHtml += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)" stroke-width="2"/>`;
+    nodesHtml += `<div class="eco-node ${activeCls}" data-cat="${c.key}" style="left:${x}px; top:${y}px;">
+        <div class="eco-count">${items.length} resources</div>
+        <h4>${c.label}</h4>
+        <div class="eco-examples">${shown}${more}</div>
+      </div>`;
+    fallbackHtml += `<div class="eco-cluster ${activeCls}" data-cat="${c.key}">
+        <div class="eco-count">${items.length} resources</div>
+        <h4>${c.label}</h4>
+        <div class="eco-examples">${shown}${more}</div>
+      </div>`;
+  });
+  wrap.innerHTML = `
+    <div class="eco-map" style="width:${W}px; height:${H}px;">
+      <svg class="eco-lines" width="${W}" height="${H}">${linesHtml}</svg>
+      <div class="eco-hub" style="left:${cx}px; top:${cy}px;">NYC Impact<br>Founder<br>Ecosystem</div>
+      ${nodesHtml}
+    </div>
+    <div class="eco-map-fallback">${fallbackHtml}</div>
+  `;
+  wrap.querySelectorAll('[data-cat]').forEach(node=>{
+    node.addEventListener('click', ()=>{
+      const key = node.getAttribute('data-cat');
+      state.cats = state.cats.has(key) && state.cats.size===1 ? new Set() : new Set([key]);
+      renderAll();
+      document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+
+function advisorCardHtml(a){
+  const contactLines = [];
+  if(a.phone) contactLines.push(`<span>${a.phone}${a.mobile ? ' &middot; mobile ' + a.mobile : ''}</span>`);
+  if(a.email) contactLines.push(`<a href="mailto:${a.email}">${a.email}</a>`);
+  if(a.address) contactLines.push(`<span>${a.address}</span>`);
+  return `<div class="bench-card">
+      <h5>${a.name}</h5>
+      ${a.firm ? `<div class="firm">${a.firm}</div>` : ''}
+      <p class="desc">${a.desc}</p>
+      ${contactLines.length ? `<div class="contact">${contactLines.join('')}</div>` : ''}
+      ${a.url ? `<a class="link" href="${a.url}" target="_blank" rel="noopener">Visit site &rarr;</a>` : ''}
+    </div>`;
+}
+
+function renderAdvisorBench(){
+  const wrap = document.getElementById('benchWrap');
+  if(!wrap) return;
+  let html = `<div class="bench-intro"><strong>Fiduciary standard:</strong> every discipline below carries at least three vetted options, so a Founder referral always comes with a genuine choice rather than a single name. Verified by Allegiance Partners; confirm current availability before referring.</div>`;
+
+  html += `<div class="bench-discipline"><h3>Legal</h3>`;
+  LEGAL_PRACTICES.forEach(p=>{
+    const list = ADVISORS.filter(a=>a.discipline==='legal' && a.practices && a.practices.includes(p.key));
+    html += `<div class="bench-group">
+        <h4>${p.label} (${list.length})</h4>
+        <div class="bench-cards">${list.map(advisorCardHtml).join('')}</div>
+      </div>`;
+  });
+  html += `</div>`;
+
+  const cpaList = ADVISORS.filter(a=>a.discipline==='cpa');
+  html += `<div class="bench-discipline"><h3>CPA / Accounting</h3>
+      <div class="bench-group">
+        <div class="bench-cards">${cpaList.map(advisorCardHtml).join('')}</div>
+      </div>
+    </div>`;
+
+  wrap.innerHTML = html;
+}
+
+function renderCatRow(){
+  const el = document.getElementById('catRow');
+  el.innerHTML = CATEGORIES.map(c=>`<div class="chip ${state.cats.has(c.key)?'active':''}" data-cat="${c.key}">${c.label}</div>`).join('');
+  el.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const key = chip.getAttribute('data-cat');
+      if(state.cats.has(key)) state.cats.delete(key); else state.cats.add(key);
+      renderAll();
+    });
+  });
+}
+
+function renderGrid(){
+  const results = RESOURCES.filter(matches);
+  document.getElementById('resultsMeta').textContent = `Showing ${results.length} of ${RESOURCES.length} resources`;
+  const grid = document.getElementById('grid');
+  if(!results.length){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">No matches. Try clearing a filter.</div>`;
+    return;
+  }
+  grid.innerHTML = results.map(r=>`
+    <div class="card">
+      <span class="cat-tag">${catLabel(r.cat)}</span>
+      <h3>${r.name}</h3>
+      <p class="desc">${r.desc}</p>
+      <div class="tags">
+        ${r.stages.map(s=>`<span class="tag-stage">${stageLabel(s)}</span>`).join('')}
+        ${r.under?'<span class="tag-under">Underrepresented-focused</span>':''}
+        ${r.impact?'<span class="tag-impact">Impact-focused</span>':''}
+      </div>
+      ${r.founder||r.phone||r.email?`<div class="contact">${r.founder?`<span>Founded by ${r.founder}</span>`:''}${r.phone?`<span>${r.phone}</span>`:''}${r.email?`<a href="mailto:${r.email}">${r.email}</a>`:''}</div>`:''}
+      <a class="link" href="${r.url}" target="_blank" rel="noopener">Visit site →</a>
+    </div>
+  `).join('');
+}
+
+function renderAll(){
+  renderJourney();
+  renderFieldGuide();
+  renderCatRow();
+  renderEcosystemMap();
+  renderGrid();
+}
+
+document.getElementById('underToggle').addEventListener('click', function(){
+  state.under = !state.under;
+  this.classList.toggle('active');
+  renderGrid();
+});
+document.getElementById('impactToggle').addEventListener('click', function(){
+  state.impact = !state.impact;
+  this.classList.toggle('active');
+  renderGrid();
+});
+document.getElementById('searchInput').addEventListener('input', function(){
+  state.query = this.value;
+  renderGrid();
+});
+document.getElementById('matrixToggle').addEventListener('click', function(){
+  this.classList.toggle('open');
+  document.getElementById('matrixWrap').classList.toggle('show');
+});
+document.getElementById('mapToggle').addEventListener('click', function(){
+  this.classList.toggle('open');
+  document.getElementById('mapWrap').classList.toggle('show');
+});
+document.getElementById('benchToggle').addEventListener('click', function(){
+  this.classList.toggle('open');
+  document.getElementById('benchWrap').classList.toggle('show');
+});
+
+document.getElementById('totalCount').textContent = RESOURCES.length + ' resources';
+document.getElementById('catCount').textContent = CATEGORIES.length + ' support categories';
+renderJourney();
+renderFieldGuide();
+renderMatrix();
+renderCatRow();
+renderEcosystemMap();
+renderAdvisorBench();
+renderGrid();
+</script>
+
+
+</body></html>
