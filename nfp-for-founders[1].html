@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Allegiance Partners | NFP for Founders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root{
+    --teal-900:#0a2540;
+    --teal-700:#123a63;
+    --teal-600:#1b4f82;
+    --teal-500:#3572ad;
+    --teal-100:#e8eef6;
+    --coral-600:#b8860b;
+    --coral-100:#faf1dc;
+    --ink-900:#161b22;
+    --ink-600:#4b5563;
+    --ink-400:#818a95;
+    --paper:#f8f7f2;
+    --card:#ffffff;
+    --line:#e1e0d8;
+    --shadow: 0 2px 10px rgba(10,37,64,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    background:var(--paper);
+    color:var(--ink-900);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 24px 64px;}
+
+  header.hero{
+    background: linear-gradient(135deg, var(--teal-900), var(--teal-600));
+    color:#fff;
+    border-radius:16px;
+    padding:32px 36px;
+    margin-bottom:28px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; right:-60px; top:-60px;
+    width:220px; height:220px; border-radius:50%;
+    background:rgba(255,255,255,0.07);
+  }
+  header.hero .brand-label{
+    color:var(--coral-600);
+    font-size:0.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  header.hero h1{
+    margin:0 0 8px; font-size:1.7rem; font-weight:700; letter-spacing:-0.01em;
+  }
+  header.hero p{
+    margin:0; max-width:680px; color:rgba(255,255,255,0.88); line-height:1.55; font-size:0.97rem;
+  }
+
+  .page-nav{
+    display:flex;flex-wrap:nowrap;overflow-x:auto;gap:10px;
+    padding:14px 0;margin-bottom:18px;border-bottom:1px solid var(--line);
+  }
+  .nav-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:0.82rem;font-weight:600;color:var(--teal-900);text-decoration:none;
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:8px 16px;transition:all .15s ease;
+  }
+  .nav-btn:hover{border-color:var(--coral-600);box-shadow:var(--shadow);}
+  .nav-btn.current,.nav-btn.active{background:var(--teal-600);color:#fff;border-color:var(--teal-600);}
+
+  .section-label{font-size:0.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--coral-600);font-weight:700;margin:26px 0 12px;}
+  .section-label:first-of-type{margin-top:0;}
+
+  .intro{font-size:0.92rem;color:var(--ink-600);line-height:1.65;max-width:800px;margin-bottom:6px;}
+
+  .steps{list-style:none;margin:0 0 8px;padding:0;counter-reset:step;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .steps li{
+    counter-increment:step;position:relative;padding:16px 22px 16px 62px;border-bottom:1px solid var(--line);
+    font-size:0.9rem;line-height:1.55;
+  }
+  .steps li:last-child{border-bottom:none}
+  .steps li::before{
+    content:counter(step);position:absolute;left:20px;top:16px;width:28px;height:28px;border-radius:50%;
+    background:var(--teal-600);color:#fff;font-size:12.5px;font-weight:700;display:flex;
+    align-items:center;justify-content:center;
+  }
+  .steps li h3{margin:0 0 4px;font-size:0.94rem;color:var(--teal-900)}
+  .steps li p{margin:0;font-size:0.87rem;color:var(--ink-600);line-height:1.6}
+  .steps li a{color:var(--teal-700);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--teal-500);}
+  .steps li a:hover{color:var(--coral-600);border-color:var(--coral-600);}
+
+  .pending{
+    background:var(--coral-100);border-left:3px solid var(--coral-600);border-radius:0 10px 10px 0;
+    padding:16px 20px;font-size:0.88rem;color:#63460b;margin:22px 0;line-height:1.6;
+  }
+  .pending strong{color:#4b3400;}
+
+  .app{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;margin-bottom:22px;overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .app-banner{
+    background:var(--teal-900);padding:16px 24px;border-bottom:3px solid var(--coral-600);
+  }
+  .app-banner h2{color:#fff;margin-bottom:4px;font-size:1.02rem;font-weight:700;}
+  .app-banner .sub{color:rgba(199,208,224,0.9);margin-bottom:0;font-size:12.5px;}
+  .app-body{padding:20px 24px 22px;}
+  .app-body p{margin:0 0 12px;font-size:0.88rem;color:var(--ink-600);line-height:1.65;}
+  .app-body p:last-child{margin-bottom:0;}
+  .app-body ul{margin:0;padding-left:18px;}
+  .app-body li{font-size:0.88rem;color:var(--ink-600);line-height:1.6;margin-bottom:6px;}
+
+  .cta{
+    margin:8px 0 8px;background:linear-gradient(135deg, var(--teal-900), var(--teal-600));border-radius:14px;padding:22px 24px;display:flex;
+    align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .cta-text h3{color:#fff;font-size:1rem;margin:0 0 4px}
+  .cta-text p{color:rgba(255,255,255,0.88);font-size:0.82rem;margin:0}
+  .cta-btn{
+    background:var(--coral-600);color:#fff;font-weight:700;font-size:0.85rem;padding:11px 20px;
+    border-radius:8px;text-decoration:none;white-space:nowrap;
+  }
+
+  .disc{
+    background:var(--teal-100); border-radius:12px; padding:14px 18px; margin-top:22px;
+    font-size:0.78rem; color:var(--teal-900); line-height:1.6;
+  }
+
+  footer{
+    margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:0.76rem; color:var(--ink-400); line-height:1.6;
+  }
+  footer strong{color:var(--teal-900)}
+
+  @media(max-width:640px){.cta{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="page-nav">
+    <a href="home.html" class="nav-btn">🏠 Client Resource Hub</a>
+    <a href="founder-navigator.html" class="nav-btn">🧭 Founder Navigator</a>
+    <a href="discovery-call.html" class="nav-btn">📞 Discovery Call</a>
+    <a href="founder-flowchart.html" class="nav-btn">🔁 Flowchart</a>
+    <a href="founder-exit-toolkit.html" class="nav-btn">🧰 Founder Exit Toolkit</a>
+    <a href="founder-reference-library.html" class="nav-btn">📚 Reference Library</a>
+    <a href="business-exit-road-map.html" class="nav-btn">🗺️ Exit Road Map</a>
+    <a href="nfp-for-founders.html" class="nav-btn active">🤝 NFP for Founders</a>
+    <a href="about-us.html" class="nav-btn">👥 About Us</a>
+    <a href="security-overview.html" class="nav-btn">🔒 Claude Security</a>
+  </nav>
+
+  <header class="hero">
+    <div class="brand-label">Allegiance Partners</div>
+    <h1>NFP for Founders — Starting &amp; Sustaining a NYS 501(c)(3)</h1>
+    <p>Many of our founder clients want to pair private wealth planning with a mission-driven public charity. Allegiance Pathway, Inc., our affiliated 501(c)(3), acts as fiscal sponsor and guides you through every stage of forming your own New York not-for-profit.</p>
+  </header>
+
+  <div class="section-label">A Founder's Roadmap to Establishing a New York Public Charity</div>
+  <p class="intro">The steps below take a not-for-profit from an idea to a fully compliant, IRS-recognized 501(c)(3) public charity — incorporation, IRS recognition, New York State registration, and the ongoing filings that keep it in good standing.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Incorporate with the NYS Department of State</h3>
+      <p>Choose a unique name, appoint a Board of Directors (3 minimum: President, Secretary, Treasurer), draft a Mission Statement, and file the Certificate of Incorporation.</p>
+    </li>
+    <li>
+      <h3>Draft &amp; Adopt Not-for-Profit By-Laws</h3>
+      <p>Board-approved governance rules covering meetings, officers, and how decisions get made.</p>
+    </li>
+    <li>
+      <h3>Apply to the IRS for an EIN</h3>
+      <p>Employer Identification Number — the organization's federal tax ID, required before any other federal filing.</p>
+    </li>
+    <li>
+      <h3>File with the IRS for 501(c)(3) Recognition</h3>
+      <p>Submit Form 1023-EZ and receive the IRS Determination Letter confirming federal tax-exempt status.</p>
+    </li>
+    <li>
+      <h3>Register with the NYS AG Charities Bureau</h3>
+      <p>File Form CHAR410 online, with governing documents attached, at <a href="https://charitiesfiling.ag.ny.gov" target="_blank" rel="noopener">charitiesfiling.ag.ny.gov</a> — then receive your NYS Registration Number.</p>
+    </li>
+    <li>
+      <h3>Apply for a NYS Sales Tax Exempt Certificate</h3>
+      <p>Via <a href="https://www.tax.ny.gov/pit/notforprofit/default.htm" target="_blank" rel="noopener">tax.ny.gov/pit/notforprofit</a> — and obtain any other permits or licenses the charity's activities require.</p>
+    </li>
+    <li>
+      <h3>File the Annual IRS Form 990</h3>
+      <p>Create a Pay.gov (ID.gov) account and file Form 990, 990-EZ, or 990-N (e-Postcard) at <a href="https://www.irs.gov/charities" target="_blank" rel="noopener">irs.gov/charities</a> — due by the 15th day of the 5th month after year-end.</p>
+    </li>
+    <li>
+      <h3>Register Annually with the NYS AG</h3>
+      <p>Submit Form CHAR500 online every year to keep the charity in good standing with New York State.</p>
+    </li>
+    <li>
+      <h3>Periodically Confirm Standing with IRS &amp; NYS AG</h3>
+      <p>Run an Exempt Organization Search at <a href="https://www.irs.gov/charities" target="_blank" rel="noopener">irs.gov/charities</a> to confirm the charity remains in good standing.</p>
+    </li>
+  </ol>
+
+  <div class="pending"><strong>Before you incorporate:</strong> consider a Fiscal Sponsorship Agreement with an existing 501(c)(3). It lets the sponsor receive donations on your project's behalf and issue donors a tax-deduction letter — while your own formation is underway.</div>
+
+  <div class="section-label">How Allegiance Pathway Helps</div>
+  <div class="app">
+    <div class="app-banner">
+      <h2>Allegiance Pathway, Inc.</h2>
+      <p class="sub">Our affiliated 501(c)(3) &amp; fiscal sponsor</p>
+    </div>
+    <div class="app-body">
+      <p>Allegiance Pathway is recognized by the IRS as a 501(c)(3) public charity. For founder clients who want to fundraise for a charitable project before their own not-for-profit receives its IRS determination, Allegiance Pathway can act as fiscal sponsor under a straightforward, pre-approved grant relationship:</p>
+      <ul>
+        <li>Allegiance Pathway accepts tax-deductible contributions on the project's behalf and issues donors an acknowledgment letter.</li>
+        <li>Funds are re-granted to the project, net of a 5% administrative fee, to be used solely for the charitable purpose the project describes.</li>
+        <li>The relationship runs until the project receives its own IRS determination letter — at which point it graduates into a fully independent 501(c)(3), and any remaining funds transfer over.</li>
+      </ul>
+      <p>We manage this entire roadmap for founder clients — incorporation, IRS and NYS filings, and the fiscal sponsorship bridge in between — alongside your broader wealth and philanthropic planning.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-text">
+      <h3>Thinking about a charitable project alongside your planning?</h3>
+      <p>Book a free Discovery Call to talk through NFP formation or fiscal sponsorship with Allegiance Pathway.</p>
+    </div>
+    <a class="cta-btn" href="discovery-call.html">Book a Discovery Call →</a>
+  </div>
+
+  <div class="disc">This page is provided for general informational purposes only and does not constitute legal or tax advice. Consult qualified New York not-for-profit counsel before incorporating, filing, or entering into a fiscal sponsorship agreement.</div>
+
+  <footer>© <strong>Allegiance Partners</strong> 2026.</footer>
+
+</div>
+</body>
+</html>
