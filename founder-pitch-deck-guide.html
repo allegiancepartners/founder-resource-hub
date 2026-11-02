@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allegiance Partners | Founder's Pitch Deck Guide</title>
+<style>
+  /* Look and feel matched to the Founder Navigator (same tokens, type and components). */
+  :root{
+    --teal-900:#0a2540;
+    --teal-700:#123a63;
+    --teal-600:#1b4f82;
+    --teal-500:#3572ad;
+    --teal-100:#e8eef6;
+    --coral-600:#b8860b;
+    --coral-100:#faf1dc;
+    --ink-900:#161b22;
+    --ink-600:#4b5563;
+    --ink-400:#818a95;
+    --paper:#f8f7f2;
+    --card:#ffffff;
+    --line:#e1e0d8;
+    --shadow: 0 2px 10px rgba(10,37,64,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    background:var(--paper);
+    color:var(--ink-900);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 24px 64px;}
+
+  /* Hub navigation (same as Founder Navigator) */
+  .page-nav{
+    display:flex;flex-wrap:nowrap;overflow-x:auto;gap:10px;
+    padding:14px 0;margin-bottom:18px;border-bottom:1px solid var(--line);
+  }
+  .nav-btn{
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+    font-size:0.82rem;font-weight:600;color:var(--teal-900);text-decoration:none;
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:8px 16px;transition:all .15s ease;
+  }
+  .nav-btn:hover{border-color:var(--coral-600);box-shadow:var(--shadow);}
+  .nav-btn.active{background:var(--teal-600);color:#fff;border-color:var(--teal-600);}
+
+  /* Hero */
+  header.hero{
+    background: linear-gradient(135deg, var(--teal-900), var(--teal-600));
+    color:#fff; border-radius:16px; padding:32px 36px; margin-bottom:28px;
+    position:relative; overflow:hidden;
+  }
+  header.hero::after{
+    content:""; position:absolute; right:-60px; top:-60px;
+    width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,0.07);
+  }
+  header.hero .brand-label{
+    color:var(--coral-600); font-size:0.78rem; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  header.hero h1{ margin:0 0 8px; font-size:1.7rem; font-weight:700; letter-spacing:-0.01em; }
+  header.hero p{ margin:0; max-width:640px; color:rgba(255,255,255,0.88); line-height:1.55; font-size:0.97rem; }
+  .badgebar{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
+  .badgebar span{
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.25);
+    padding:5px 12px; border-radius:999px; font-size:0.78rem; color:#fff;
+  }
+
+  /* Section heads */
+  .section{ margin-top:34px; }
+  .section-head h2{
+    margin:0 0 4px; font-size:1.1rem; color:var(--teal-900);
+    border-bottom:2px solid var(--teal-600); padding-bottom:6px;
+  }
+  .section-head p{ margin:8px 0 16px; font-size:0.9rem; color:var(--ink-600); line-height:1.55; }
+
+  /* Field guide callout */
+  .field-guide{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px 22px; margin:0 0 8px; box-shadow:var(--shadow);
+  }
+  .field-guide h4{ margin:0 0 8px; color:var(--coral-600); font-size:0.85rem; text-transform:uppercase; letter-spacing:.05em; }
+  .field-guide p{ margin:0; line-height:1.6; font-size:0.92rem; color:var(--ink-900); }
+
+  /* Cards */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; }
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+    box-shadow:var(--shadow); display:flex; flex-direction:column; gap:8px;
+  }
+  .card .cat-tag{
+    align-self:flex-start; font-size:0.68rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.04em; color:var(--teal-700); background:var(--teal-100); padding:3px 9px; border-radius:6px;
+  }
+  .card h3{ margin:0; font-size:1.02rem; color:var(--ink-900); }
+  .card p.desc{ margin:0; font-size:0.85rem; color:var(--ink-600); line-height:1.5; flex-grow:1; }
+  .card .test{
+    font-size:0.8rem; line-height:1.5; color:var(--ink-900);
+    background:var(--coral-100); border-radius:8px; padding:8px 10px;
+  }
+  .card .test strong{ color:var(--coral-600); }
+
+  /* Slide journey (stage-node style) */
+  .journey{ display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; }
+  .stage-node{
+    cursor:pointer; background:var(--card); border:2px solid var(--line);
+    border-radius:14px; padding:16px 14px; text-align:left; transition:all .15s ease;
+    font:inherit; color:inherit;
+  }
+  .stage-node:hover{ border-color:var(--teal-500); transform:translateY(-2px); }
+  .stage-node.active{ border-color:var(--teal-600); background:var(--teal-100); box-shadow:var(--shadow); }
+  .stage-node .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:24px; height:24px; border-radius:50%; background:var(--teal-600); color:#fff;
+    font-size:0.75rem; font-weight:700; margin-bottom:8px;
+  }
+  .stage-node.active .num{ background:var(--coral-600); }
+  .stage-node h3{ margin:0 0 4px; font-size:0.95rem; color:var(--teal-900); }
+  .stage-node p{ margin:0; font-size:0.78rem; color:var(--ink-600); line-height:1.4; }
+
+  .slide-detail{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px 22px; margin-top:14px; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1fr 1fr; gap:14px 24px;
+  }
+  .slide-detail .head{ grid-column:1 / -1; }
+  .slide-detail .head h4{ margin:0 0 2px; color:var(--coral-600); font-size:0.85rem; text-transform:uppercase; letter-spacing:.05em; }
+  .slide-detail .head h3{ margin:0; font-size:1.15rem; color:var(--teal-900); }
+  .slide-detail .col h5{ margin:0 0 4px; font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  .slide-detail .col p{ margin:0; font-size:0.9rem; line-height:1.55; }
+  .slide-detail .do h5{ color:#3f7d2c; }
+  .slide-detail .dont h5{ color:#b4321f; }
+  .hint{ font-size:0.82rem; color:var(--ink-600); margin-top:10px; }
+
+  /* Mistakes table (matrix style) */
+  .matrix-wrap{ overflow-x:auto; }
+  table.matrix{ border-collapse:collapse; width:100%; background:var(--card); border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  table.matrix th, table.matrix td{ padding:12px 14px; border:1px solid var(--line); text-align:left; font-size:0.86rem; line-height:1.5; vertical-align:top; }
+  table.matrix th{ background:var(--teal-900); color:#fff; font-weight:600; }
+  table.matrix td.rowlabel{ font-weight:600; color:var(--teal-900); background:var(--teal-100); width:42%; }
+
+  /* Steps */
+  .steps{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+  .steps li{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow);
+    padding:14px 18px 14px 56px; position:relative;
+  }
+  .steps .num{
+    position:absolute; left:18px; top:14px;
+    display:inline-flex; align-items:center; justify-content:center;
+    width:24px; height:24px; border-radius:50%; background:var(--teal-600); color:#fff;
+    font-size:0.75rem; font-weight:700;
+  }
+  .steps strong{ display:block; color:var(--teal-900); font-size:0.95rem; margin-bottom:2px; }
+  .steps span.txt{ font-size:0.86rem; color:var(--ink-600); line-height:1.5; }
+
+  /* Quote (bench-intro style) */
+  .bench-intro{
+    background:var(--coral-100); border:1px solid var(--coral-600); border-radius:12px;
+    padding:16px 20px; font-size:1rem; color:var(--ink-900); line-height:1.55;
+  }
+  .bench-intro strong{ color:var(--coral-600); }
+
+  /* Checklist */
+  .results-meta{ font-size:0.82rem; color:var(--ink-600); margin-bottom:12px; }
+  .checklist{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(320px,1fr)); gap:10px; }
+  .checklist label{
+    display:flex; gap:10px; align-items:flex-start; cursor:pointer;
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px;
+    font-size:0.88rem; line-height:1.45; transition:border-color .12s, background .12s;
+  }
+  .checklist label:hover{ border-color:var(--teal-500); }
+  .checklist input{ margin-top:2px; width:16px; height:16px; accent-color:var(--teal-600); flex:none; }
+  .checklist label.done{ background:var(--teal-100); border-color:var(--teal-600); }
+  .checklist label.done span{ color:var(--ink-600); text-decoration:line-through; }
+  .chip{
+    border:1px solid var(--line); background:var(--card); padding:7px 14px; border-radius:999px;
+    font:inherit; font-size:0.8rem; cursor:pointer; color:var(--ink-600); transition:all .12s;
+  }
+  .chip:hover{ border-color:var(--teal-500); }
+
+  .sources a{ color:var(--teal-700); text-decoration:none; border-bottom:1.5px solid var(--teal-500); }
+  .sources a:hover{ color:var(--coral-600); border-color:var(--coral-600); }
+  .sources li{ margin-bottom:6px; font-size:0.86rem; color:var(--ink-600); }
+
+  footer{
+    margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:0.76rem; color:var(--ink-400); line-height:1.6;
+  }
+
+  @media (max-width:900px){ .journey{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:760px){
+    .wrap{ padding:20px 16px 48px; }
+    header.hero{ padding:26px 22px; }
+    .slide-detail{ grid-template-columns:1fr; }
+    table.matrix td.rowlabel{ width:auto; }
+  }
+  @media print{
+    .page-nav{ display:none; }
+    .card, .steps li, .stage-node{ break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="page-nav">
+    
+    <a href="index.html" class="nav-btn">🏠 Founder Resource Hub</a>
+    <a href="founder-navigator.html" class="nav-btn">🧭 Founder Navigator</a>
+    <a href="discovery-call.html" class="nav-btn">📞 Discovery Call</a>
+    <a href="founder-flowchart.html" class="nav-btn">🔁 Flowchart</a>
+    <a href="founder-exit-toolkit.html" class="nav-btn">🧰 Founder Exit Toolkit</a>
+    <a href="founder-reference-library.html" class="nav-btn">📚 Reference Library</a>
+    <a href="business-exit-road-map.html" class="nav-btn">🗺️ Exit Road Map</a>
+    <a href="nfp-for-founders.html" class="nav-btn">🤝 NFP for Founders</a>
+    <a href="founder-pitch-deck-guide.html" class="nav-btn active">🎤 Pitch Deck Guide</a>
+    <a href="about-us.html" class="nav-btn">👥 About Us</a>
+      
+    </nav>
+
+  <header class="hero">
+    <div class="brand-label">Allegiance Partners</div>
+    <h1>The Founder's Pitch Deck Guide</h1>
+    <p>A seed deck wins on clarity, not volume: ten slides, three design rules, and one story an investor can repeat to their partners.</p>
+    <div class="badgebar">
+      <span>50+ YC decks analyzed</span>
+      <span>$450M+ raised by those startups</span>
+      <span>10 slides that consistently appear</span>
+      <span>&lt;3 min avg. investor time per deck</span>
+    </div>
+  </header>
+
+  <div class="field-guide">
+    <h4>How to use this guide</h4>
+    <p>Investors usually decide whether to keep reading by slide 2. Start with the three facts and design rules below, then build each slide from the 10-slide structure, and run the pre-send checklist before your deck goes to anyone.</p>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Why decks win or lose</h2>
+      <p>Three facts shape everything else in this guide.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="cat-tag">Speed of read</span><h3>The first three slides decide it</h3><p class="desc">If the point isn't obvious by slide 3, the rest rarely gets a fair read.</p></div>
+      <div class="card"><span class="cat-tag">Memory over detail</span><h3>Be the deck they can retell</h3><p class="desc">Investors see hundreds of decks a year. The one they remember is the one they can retell in a sentence, not the one with the most data.</p></div>
+      <div class="card"><span class="cat-tag">Design signals discipline</span><h3>Clean slides read as clear thinking</h3><p class="desc">A cluttered deck tells investors how the founder will run the company.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The three design rules</h2>
+      <p>Every slide must pass all three before it goes in the deck. These come from YC partner Kevin Hale's guidance on seed decks.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="cat-tag">Rule 1</span><h3>Legibility</h3><p class="desc">Large, bold fonts and high contrast. Readable from the back of a room or on a phone.</p><div class="test"><strong>Test:</strong> Shrink the slide to a thumbnail. Can you still read the key line?</div></div>
+      <div class="card"><span class="cat-tag">Rule 2</span><h3>Simplicity</h3><p class="desc">One idea per slide. No excess text, logos or diagrams cluttering the point.</p><div class="test"><strong>Test:</strong> Name the slide's idea in five words. Need two ideas? Make two slides.</div></div>
+      <div class="card"><span class="cat-tag">Rule 3</span><h3>Obviousness</h3><p class="desc">The takeaway lands in seconds without you narrating.</p><div class="test"><strong>Test:</strong> Show it to a stranger for 5 seconds and ask what it said.</div></div>
+    </div>
+    <p class="hint">Practical defaults: 30pt+ body text, a headline that states the takeaway ("Revenue grew 3x in 6 months", not "Traction"), and one chart or image at most.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The 10-slide structure</h2>
+      <p>This order answers investors' questions in the order they ask them. Select a slide to see what to include and what to avoid. If traction is your strongest point, move it up — the order serves the story.</p>
+    </div>
+    <div class="journey" id="journey"></div>
+    <div class="slide-detail" id="slideDetail" aria-live="polite"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Mistakes that kill decks before slide 5</h2>
+      <p>Most decks are lost early to four avoidable mistakes.</p>
+    </div>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead><tr><th>Mistake</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="rowlabel">Overloading slides with information instead of one clean idea</td><td>One headline and one supporting visual per slide; move detail to an appendix or data room</td></tr>
+          <tr><td class="rowlabel">Illegible screenshots instead of simplified visuals</td><td>Crop to the one part of the product that matters, or redraw it as a simple mock</td></tr>
+          <tr><td class="rowlabel">Skipping the problem, solution or team slides</td><td>Keep all three — investors look for them and read their absence as a gap</td></tr>
+          <tr><td class="rowlabel">Burying the ask, with no milestone attached</td><td>Amount and milestone on one slide: "$2M to reach $1M ARR in 18 months"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>How to build your deck</h2>
+      <p>Write the story before you open a slide tool. Start with slides and you end up decorating; start with the story and you end up persuading.</p>
+    </div>
+    <ol class="steps">
+      <li><span class="num">1</span><strong>Write your one-sentence pitch</strong><span class="txt">What you do, for whom, and why it matters now. If you can't write it, you aren't ready for slides.</span></li>
+      <li><span class="num">2</span><strong>Draft the deck as ten headlines</strong><span class="txt">One takeaway sentence per slide. Read them aloud in order — they should tell the whole story with no visuals.</span></li>
+      <li><span class="num">3</span><strong>Pick one proof per headline</strong><span class="txt">A number, a chart, a quote or a product image. Only one.</span></li>
+      <li><span class="num">4</span><strong>Build the slides</strong><span class="txt">Big type, one idea, obvious takeaway. Everything else goes to an appendix.</span></li>
+      <li><span class="num">5</span><strong>Run the stranger test</strong><span class="txt">Show each slide for 5 seconds to someone outside your industry. Rewrite any slide they can't summarize.</span></li>
+      <li><span class="num">6</span><strong>Test the retell</strong><span class="txt">A day after a friend reads the deck, ask them to describe the company in two sentences. That is what an investor will tell their partners.</span></li>
+      <li><span class="num">7</span><strong>Make two versions</strong><span class="txt">A presenting version (sparse, you narrate) and a send-ahead version (fuller captions so it stands alone).</span></li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="bench-intro"><strong>Remember:</strong> your goal isn't to impress investors with data. It's to make your story impossible to forget.</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Pre-send checklist</h2>
+      <p>Tick each item before the deck goes to an investor.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div class="results-meta" style="margin:0" aria-live="polite"><span id="doneCount">0</span> of <span id="totalCount">0</span> complete</div>
+      <button type="button" class="chip" id="resetBtn">Reset</button>
+    </div>
+    <ul class="checklist" id="checklist">
+      <li><label><input type="checkbox"><span>Slide 1 says plainly what the company does</span></label></li>
+      <li><label><input type="checkbox"><span>Problem and solution are clear by slide 3</span></label></li>
+      <li><label><input type="checkbox"><span>Every headline states a takeaway, not a topic label</span></label></li>
+      <li><label><input type="checkbox"><span>Each slide has one idea and passes the 5-second test</span></label></li>
+      <li><label><input type="checkbox"><span>Text is readable at thumbnail size</span></label></li>
+      <li><label><input type="checkbox"><span>Traction numbers are honest and labeled (monthly vs cumulative, dates shown)</span></label></li>
+      <li><label><input type="checkbox"><span>Market size is built bottom-up</span></label></li>
+      <li><label><input type="checkbox"><span>Team slide explains why these founders win this market</span></label></li>
+      <li><label><input type="checkbox"><span>The ask names an amount, use of funds and a milestone</span></label></li>
+      <li><label><input type="checkbox"><span>10–12 slides, with detail in an appendix</span></label></li>
+      <li><label><input type="checkbox"><span>A friend can retell the company in two sentences</span></label></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Sources &amp; further reading</h2></div>
+    <ul class="sources">
+      <li>Venture Curator, <a href="https://venturecurator.com/p/how-to-design-a-seed-pitch-deck-investors-de6" target="_blank" rel="noopener">The 10-Slide Y Combinator Pitch Deck Formula</a> (June 2026)</li>
+      <li>Kevin Hale, Y Combinator, <a href="https://www.ycombinator.com/library/4T-how-to-design-a-better-pitch-deck" target="_blank" rel="noopener">How to Design a Better Pitch Deck</a></li>
+      <li>Y Combinator, <a href="https://www.ycombinator.com/library/2u-how-to-build-your-seed-round-pitch-deck" target="_blank" rel="noopener">How to Build Your Seed Round Pitch Deck</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><strong>About this guide.</strong> A starting framework drawn from published YC guidance and an analysis of seed decks, not a guarantee of investor response. Adapt the structure to your company's story and stage.</p>
+    <p>An Allegiance Partners resource.</p>
+  </footer>
+</div>
+
+<script>
+const SLIDES = [
+  {t:"Title", s:"Who you are, in one line.", inc:"Company name + a one-line description of what you do.", avoid:"A vague tagline (\"Reimagining the future of work\")."},
+  {t:"Problem", s:"A real pain, made concrete.", inc:"A real issue, told through a stat or a short story about a real customer.", avoid:"Describing the market instead of the pain."},
+  {t:"Solution", s:"Show the \"aha.\"", inc:"Your approach and why it works — show the \"aha.\"", avoid:"A feature list or a dense product screenshot."},
+  {t:"Traction", s:"Honest numbers.", inc:"Revenue, users, growth, retention — honest numbers, even if the curve isn't smooth.", avoid:"Cumulative charts that hide flat growth; vanity metrics."},
+  {t:"Unique Advantage", s:"Why you, why now.", inc:"Why you, why now, and why this is hard to copy.", avoid:"Claiming \"no competitors\" or listing features others also have."},
+  {t:"Business Model", s:"How you make money.", inc:"One clear pricing logic.", avoid:"Five hedged revenue streams."},
+  {t:"Market Opportunity", s:"TAM, built bottom-up.", inc:"TAM at a glance, built bottom-up (customers × price).", avoid:"Top-down \"1% of a $100B market\" math."},
+  {t:"Team", s:"Why these founders win.", inc:"Why these founders specifically win this. Relevant scars beat resume bullets.", avoid:"Logo walls and advisor lists with no link to the problem."},
+  {t:"The Ask", s:"Amount, use, milestone.", inc:"Amount raised, use of funds, and the milestone it gets you to.", avoid:"Tying the raise to burn rate instead of a milestone."},
+  {t:"Design Discipline", s:"Applied to every slide.", inc:"Legibility, simplicity and obviousness applied to every slide before slide 5.", avoid:"Treating design as polish added at the end."}
+];
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const journey = document.getElementById('journey');
+const detail = document.getElementById('slideDetail');
+journey.innerHTML = SLIDES.map((x,i) =>
+  `<button type="button" class="stage-node" data-i="${i}" aria-pressed="false">
+     <span class="num">${i+1}</span><h3>${esc(x.t)}</h3><p>${esc(x.s)}</p>
+   </button>`).join('');
+function show(i){
+  const x = SLIDES[i];
+  journey.querySelectorAll('.stage-node').forEach((n,j) => {
+    n.classList.toggle('active', j===i); n.setAttribute('aria-pressed', j===i);
+  });
+  detail.innerHTML = `<div class="head"><h4>Slide ${i+1} of 10</h4><h3>${esc(x.t)}</h3></div>
+    <div class="col do"><h5>Include</h5><p>${esc(x.inc)}</p></div>
+    <div class="col dont"><h5>Avoid</h5><p>${esc(x.avoid)}</p></div>`;
+}
+journey.addEventListener('click', e => { const n = e.target.closest('.stage-node'); if(n) show(+n.dataset.i); });
+show(0);
+
+const boxes = document.querySelectorAll('#checklist input');
+const doneEl = document.getElementById('doneCount');
+document.getElementById('totalCount').textContent = boxes.length;
+function update(){
+  let n = 0;
+  boxes.forEach(b => { b.closest('label').classList.toggle('done', b.checked); if(b.checked) n++; });
+  doneEl.textContent = n;
+}
+boxes.forEach(b => b.addEventListener('change', update));
+document.getElementById('resetBtn').addEventListener('click', () => { boxes.forEach(b => b.checked = false); update(); });
+</script>
+</body>
+</html>
